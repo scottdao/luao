@@ -1,0 +1,7 @@
+{
+  "name": "chain-utils-js",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
