@@ -1,6 +1,6 @@
 {
-  "name": "@luao/babel-preset",
-  "version": "1.0.0",
+  "name": "luao-babel-preset",
+  "version": "1.0.1",
   "description": "babel preset for luao",
   "license": "ISC",
   "author": "ScottLiu",
@@ -13,7 +13,10 @@
     "build": "rm -rf ./dist && pnpm tsc",
     "push": "npm publish"
   },
-  "git-checks":false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scottdao/luao/packages/luao-babel-preset"
+  },
   "dependencies": {
     "@babel/core": "7.17.9",
     "@babel/plugin-proposal-decorators": "7.17.9",
