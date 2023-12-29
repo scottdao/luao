@@ -1,0 +1,23 @@
+{
+  "name": "@luao/rollup",
+  "version": "1.0.0",
+  "description": "rollup code package for luao",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "rollup",
+    "tools"
+  ],
+  "author": "ScottLiu",
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && pnpm tsc",
+    "push": "pnpm push"
+  },
+  "dependencies": {
+    "typescript": "^5.3.3"
+  }
+}

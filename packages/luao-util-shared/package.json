@@ -1,0 +1,21 @@
+{
+  "name": "@luao/util-shared",
+  "version": "1.0.0",
+  "description": "指令工具",
+  "main": "./dis/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build":"rm -rf ./dist && yarn tsc ",
+    "dev":"luao-cli"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "author": {
+    "name": "liudaoyun",
+    "email": "scottldy0316@gmail.com",
+    "url": "https://github.com/scottdao/luao.git"
+  }
+}

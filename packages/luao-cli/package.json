@@ -1,0 +1,29 @@
+{
+  "name": "@luao/cli",
+  "version": "1.0.0",
+  "description": "脚手架",
+  "type": "module",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "bin": {
+    "luao-cli": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && pnpm tsc",
+    "dev": "node --experimental-loader ts-node/esm ./src/index.ts"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "author": {
+    "name": "liudaoyun",
+    "email": "scottldy0316@gmail.com",
+    "url": "https://github.com/scottdao/luao.git"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

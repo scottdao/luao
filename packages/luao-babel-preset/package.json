@@ -1,0 +1,32 @@
+{
+  "name": "@luao/babel-preset",
+  "version": "1.0.0",
+  "description": "babel preset for luao",
+  "license": "ISC",
+  "author": "ScottLiu",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && pnpm tsc",
+    "push": "npm publish"
+  },
+  "git-checks":false,
+  "dependencies": {
+    "@babel/core": "7.17.9",
+    "@babel/plugin-proposal-decorators": "7.17.9",
+    "@babel/plugin-proposal-export-default-from": "7.16.7",
+    "@babel/plugin-transform-runtime": "7.17.0",
+    "@babel/preset-env": "7.16.11",
+    "@babel/preset-react": "7.16.7",
+    "@babel/preset-typescript": "7.16.7",
+    "@babel/runtime": "7.17.9",
+    "@babel/runtime-corejs3": "7.19.0",
+    "babel-plugin-const-enum": "1.2.0",
+    "babel-plugin-styled-components": "2.0.7",
+    "core-js": "3.22.4",
+    "regenerator-runtime": "0.13.9"
+  }
+}

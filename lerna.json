@@ -1,6 +1,17 @@
 {
-  "packages": [
-    "packages/*"
-  ],
-  "version": "0.0.1"
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "message": "chore(release): publish"
+    },
+    "version": {
+      "allowBranch": [
+        "master",
+        "main"
+      ]
+    }
+  },
+  "version": "independent",
+  "npmClient": "pnpm",
+  "useWorkspaces": true
 }

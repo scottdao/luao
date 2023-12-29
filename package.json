@@ -1,7 +1,18 @@
 {
-  "name": "web-utils-chain",
+  "name": "luao",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@types/node": "^20.10.5",
+    "lerna": "^8.0.1",
+    "ts-node": "^10.9.2",
+    "turbo": "^1.11.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=10",
+    "pnpm": ">=3"
   }
 }
