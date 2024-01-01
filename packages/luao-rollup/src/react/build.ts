@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { rimraf } from 'rimraf';
+import rimraf from 'rimraf';
 import signale from 'signale';
 import rollup from './rollup';
 import getUserConfig from '../utils/getUserConfig';
@@ -51,15 +51,15 @@ export async function buildReact(props?: RollupBuildProps) {
       ['dist', 'es'].map(
         (path) =>
           new Promise((resolve, reject) => {
-            rimraf(join(cwd, path)).then(() => { 
-              resolve('done')
-            }).catch(reject)
-            // rimraf(join(cwd, path), (error) => {
-            //   if (error) {
-            //     reject(error);
-            //   }
-            //   resolve('done');
-            // });
+            // rimraf(join(cwd, path)).then(() => { 
+            //   resolve('done')
+            // }).catch(reject)
+            rimraf(join(cwd, path), (error) => {
+              if (error) {
+                reject(error);
+              }
+              resolve('done');
+            });
           }),
       ),
     )

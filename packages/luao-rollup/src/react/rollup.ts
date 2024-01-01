@@ -18,7 +18,6 @@ async function build(entry: string, opts: IRollupOpts) {
     entry,
     bundleOpts,
   });
-
   for (const rollupConfig of rollupConfigs) {
     const { output, ...input } = rollupConfig;
     const bundle = await rollup(input);

@@ -3,7 +3,7 @@ import { basename, extname, join, resolve } from 'path';
 import { setBabelPreset } from 'luao-babel-preset';
 import { ModuleFormat, RollupOptions } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
-import  terser  from '@rollup/plugin-terser';
+import { terser }  from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
 import typescript2 from 'rollup-plugin-typescript2';
