@@ -15,9 +15,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "rm -rf ./lib && pnpm tsc",
+    "build": "luao-tsc",
     "push": "npm publish",
-    "dev": "node ./index.js",
     "test": "node  example/index.js",
     "test:node": "node --experimental-loader ts-node/esm  src/index.ts"
   },
