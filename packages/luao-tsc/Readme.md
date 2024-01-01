@@ -5,6 +5,11 @@
     pnpm add -D luao-tsc
 ```
 - 配置
+```package.json
+ "scripts": {
+    "build": "luao-tsc",
+  },
+```
 ```tsconfig.json
 {
   ...
