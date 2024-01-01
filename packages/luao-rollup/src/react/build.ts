@@ -3,7 +3,7 @@ import { rimraf } from 'rimraf';
 import signale from 'signale';
 import rollup from './rollup';
 import getUserConfig from '../utils/getUserConfig';
-import { getExistFile } from '../utils';
+import { getExistFile } from '../utils/index';
 import { IBundleOptions, IEsm } from '../types';
 
 /**
@@ -20,7 +20,7 @@ const defaultBundleOpts: IBundleOptions = {
   },
 };
 
-function getBundleOpts({ entry }: { entry?: string }): IBundleOptions[] {
+async function getBundleOpts({ entry }: { entry?: string }):Promise<IBundleOptions[]>  {
   entry =
     entry ??
     getExistFile([
@@ -29,7 +29,7 @@ function getBundleOpts({ entry }: { entry?: string }): IBundleOptions[] {
       'src/index.jsx',
       'src/index.js',
     ]);
-  const userConfig = getUserConfig();
+  const userConfig = await getUserConfig();
   const userConfigs = Array.isArray(userConfig) ? userConfig : [userConfig];
   return userConfigs.map((_userConfig) => ({
     entry,
@@ -73,7 +73,7 @@ export async function buildReact(props?: RollupBuildProps) {
 
     global.pending('开始打包');
 
-    const bundleOpts = getBundleOpts({ entry: props?.entry });
+    const bundleOpts = await getBundleOpts({ entry: props?.entry });
 
     const promises = bundleOpts.reduce<Array<Promise<void>>>(
       (pre, bundleOpt) => {

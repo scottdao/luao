@@ -1,13 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./dist",
     "rootDir": "./src",
     "module": "ESNext"
   },
-  "include": [
-    "src"
-  ],
-  "luaoOutDir":["lib"],
-  "luaoOutFileSuffix":".js"
+  "include": ["src"]
 }

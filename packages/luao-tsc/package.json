@@ -1,0 +1,28 @@
+{
+  "name": "luao-tsc",
+  "version": "1.0.0",
+  "description": "tsc for luao",
+  "license": "ISC",
+  "author": "ScottLiu",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "luao-tsc": "./bin/index.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && pnpm tsc",
+    "push": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scottdao/luao/packages/luao-tsc-suffix"
+  },
+  "dependencies": {
+    "rimraf": "^5.0.5",
+    "signale": "^1.4.0"
+  }
+}
