@@ -17,6 +17,7 @@
   "scripts": {
     "build": "luao-tsc",
     "push": "npm publish",
+    "dev":"node ./index.js",
     "test": "node  example/index.js",
     "test:node": "node --experimental-loader ts-node/esm  src/index.ts"
   },
@@ -57,6 +58,7 @@
     "@types/rimraf": "^4.0.5",
     "@types/signale": "^1.4.7",
     "is-windows": "^1.0.2",
+    "luao-tsc": "^1.0.1",
     "ts-node": "^10.9.2"
   }
 }

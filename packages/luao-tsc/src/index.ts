@@ -58,11 +58,29 @@ async function reWrite (filePath: string, fileSuffixName: string) {
         process.exit(1);
     }
 }
-// 多个目录重写后缀
-function multipleRewrite(entryFilePath: string[], suffixName: string) {
+// 执行tsc 命令
+async function runSpawnCmd(value: string) {
+    return new Promise((resolve, reject) => { 
+        const tsc = childProcess.spawn(value)
+        tsc.stdout.on('data', (data) => {
+            // rewriteFn()
+            resolve('data')
+            console.log(`stdout: ${data}`);
+        });
+        tsc.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+        tsc.on('close', (code) => {
+            reject('close');
+            console.log(`child process exited with code ${code}`);
+        });
+    })
+}
+// 清除文件命令
+function clearFileCmd(entryFilePath: string[]) { 
     const cwd = process.cwd();
     const global = signale.scope('luao-tsc rewrite start...');
-    Promise.all(entryFilePath.map(item => {
+    return Promise.all(entryFilePath.map(item => {
         return new Promise((resolve, reject) => { 
             const filePath = path.join(cwd, item)
             rimraf(filePath).then(() => { 
@@ -75,27 +93,26 @@ function multipleRewrite(entryFilePath: string[], suffixName: string) {
         })
     })).then(() => {
         global.success('clear file dir success');
+        return Promise.resolve()
     })
     .catch((err) => {
         global.error(err);
         process.exit(1);
+        // return Promise.reject(err)
     });
+}
+// 多个目录重写后缀
+async function multipleRewrite(entryFilePath: string[], suffixName: string) {
+    await clearFileCmd(entryFilePath)
     const rewriteFn = () => {
         entryFilePath.map(item=>reWrite(item, suffixName))
     }
-    const tsc = childProcess.spawn('tsc')
-    tsc.stdout.on('data', (data) => {
+    runSpawnCmd('tsc').then(() => { 
         rewriteFn()
-        console.log(`stdout: ${data}`);
-    });
-    tsc.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-    tsc.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
- }
- async function getConfigTsConfig() {
+    })
+}
+ //获取tsconfig.json配置
+async function getConfigTsConfig() {
     const cwd = process.cwd();
     const global = signale.scope('luao-tsc read config...');
     const filePath = path.join(cwd, 'tsconfig.json')
@@ -107,13 +124,29 @@ function multipleRewrite(entryFilePath: string[], suffixName: string) {
     const fileJson = await import(filePath, {
         assert: { type: 'json' }
     }) 
-    const configJson = fileJson.default
-    if (!configJson.luaoOutDir || !configJson.luaoOutDir.length) { 
+     const configJson = fileJson.default
+     if (!configJson.luaoOutDir || !configJson.luaoOutDir.length) { 
         global.error('tsconfig.json`s props:luaoOutDir must setting!!!');
         process.exit(1)
     }
     if (!configJson.luaoOutFileSuffix) { 
         configJson.luaoOutFileSuffix = '.js';
+    }
+    const compilerOptions = configJson.compilerOptions
+     if (compilerOptions.module === 'commonjs') {
+        await clearFileCmd(configJson.luaoOutDir)
+        return runSpawnCmd('tsc')
+    }
+    if (!compilerOptions.module) { 
+        const filePath = path.join(cwd, configJson.extends)
+         // @ts-ignore
+        const fileBaseJson = await import(filePath, {
+            assert: { type: 'json' }
+        })
+        if (fileBaseJson.default.compilerOptions.module === 'commonjs') { 
+            await clearFileCmd(configJson.luaoOutDir)
+            return runSpawnCmd('tsc')
+        }
     }
     global.success('luao-tsc read config success');
     multipleRewrite(configJson.luaoOutDir, configJson.luaoOutFileSuffix)

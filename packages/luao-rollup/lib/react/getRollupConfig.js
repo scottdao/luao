@@ -1,24 +1,30 @@
-import fs from 'fs';
-import { basename, extname, join, resolve } from 'path';
-import { setBabelPreset } from 'luao-babel-preset';
-import { visualizer } from 'rollup-plugin-visualizer';
-import terser from '@rollup/plugin-terser';
-import postcss from 'rollup-plugin-postcss';
-import replace from '@rollup/plugin-replace';
-import typescript2 from 'rollup-plugin-typescript2';
-import alias from '@rollup/plugin-alias';
-import babel from '@rollup/plugin-babel';
-import json from '@rollup/plugin-json';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import url from 'postcss-url';
-import strip from '@rollup/plugin-strip';
-import image from '@rollup/plugin-image';
-import svgr from '@svgr/rollup';
-import { camelCase } from 'lodash';
-import tempDir from 'temp-dir';
-import autoprefixer from 'autoprefixer';
-import { createTransformer } from 'typescript-plugin-styled-components';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = __importDefault(require("fs"));
+const path_1 = require("path");
+const luao_babel_preset_1 = require("luao-babel-preset");
+const rollup_plugin_visualizer_1 = require("rollup-plugin-visualizer");
+const plugin_terser_1 = __importDefault(require("@rollup/plugin-terser"));
+const rollup_plugin_postcss_1 = __importDefault(require("rollup-plugin-postcss"));
+const plugin_replace_1 = __importDefault(require("@rollup/plugin-replace"));
+const rollup_plugin_typescript2_1 = __importDefault(require("rollup-plugin-typescript2"));
+const plugin_alias_1 = __importDefault(require("@rollup/plugin-alias"));
+const plugin_babel_1 = __importDefault(require("@rollup/plugin-babel"));
+const plugin_json_1 = __importDefault(require("@rollup/plugin-json"));
+const plugin_node_resolve_1 = __importDefault(require("@rollup/plugin-node-resolve"));
+const plugin_commonjs_1 = __importDefault(require("@rollup/plugin-commonjs"));
+const postcss_url_1 = __importDefault(require("postcss-url"));
+const plugin_strip_1 = __importDefault(require("@rollup/plugin-strip"));
+const plugin_image_1 = __importDefault(require("@rollup/plugin-image"));
+const rollup_1 = __importDefault(require("@svgr/rollup"));
+const lodash_1 = __importDefault(require("lodash"));
+const { camelCase } = lodash_1.default;
+const temp_dir_1 = __importDefault(require("temp-dir"));
+const autoprefixer_1 = __importDefault(require("autoprefixer"));
+const typescript_plugin_styled_components_1 = require("typescript-plugin-styled-components");
 const onwarn = (warning) => {
     if (warning.code !== 'CIRCULAR_DEPENDENCY' &&
         warning.code !== 'MISSING_GLOBAL_NAME') {
@@ -26,19 +32,19 @@ const onwarn = (warning) => {
         // console.error(chalk.yellow(`(!) ${warning.message}`));
     }
 };
-export default function (opts) {
+function default_1(opts) {
     const { cwd, type, entry, bundleOpts, importLibToEs } = opts;
     const { output, extraExternals = [] } = bundleOpts;
-    const entryExt = extname(entry);
+    const entryExt = (0, path_1.extname)(entry);
     const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
     const extensions = ['.js', '.jsx', '.ts', '.tsx'];
     let pkg = {};
     try {
-        pkg = require(join(cwd, 'package.json'));
+        pkg = require((0, path_1.join)(cwd, 'package.json'));
     }
     catch (e) { }
     const babelOpts = {
-        ...setBabelPreset({
+        ...(0, luao_babel_preset_1.setBabelPreset)({
             presetEnv: {},
             presetReact: {},
             presetTypeScript: {},
@@ -54,9 +60,9 @@ export default function (opts) {
         exclude: /\/node_modules\//,
     };
     if (importLibToEs && type === 'esm') {
-        babelOpts.plugins.push(require.resolve('../dist/utils/importLibToEs.js'));
+        babelOpts.plugins.push(require.resolve('../dist/utils/importLibToEs'));
     }
-    const input = join(cwd, entry);
+    const input = (0, path_1.join)(cwd, entry);
     const format = type;
     const packageDependencies = Object.keys(pkg.dependencies || {}).concat(Object.keys(pkg.peerDependencies || {}));
     const external = function (id) {
@@ -75,15 +81,15 @@ export default function (opts) {
     function getPlugins(opts = {}) {
         const { minCSS, outputPath } = opts;
         return [
-            commonjs({
+            (0, plugin_commonjs_1.default)({
                 include: /node_modules/,
             }),
-            visualizer(),
-            strip({
+            (0, rollup_plugin_visualizer_1.visualizer)(),
+            (0, plugin_strip_1.default)({
                 functions: ['console.*', 'assert.*', 'module.hot.accept'],
             }),
-            svgr(),
-            postcss({
+            (0, rollup_1.default)(),
+            (0, rollup_plugin_postcss_1.default)({
                 extensions: ['.css', '.scss', '.less'],
                 extract: true,
                 inject: true,
@@ -95,44 +101,44 @@ export default function (opts) {
                     // 先处理@import
                     require('postcss-import')(),
                     // 将小于10kb的资源转换成base64，大于10kb输出到static文件夹下
-                    url({
+                    (0, postcss_url_1.default)({
                         url: 'inline',
                         maxSize: 10,
                         filter: /\.(woff2?|eot|ttf|otf|png|jpe?g|gif|svg)(\?.*)?$/,
                         fallback({ absolutePath }) {
-                            const dist = resolve(outputPath);
-                            if (!fs.existsSync(dist)) {
-                                fs.mkdirSync(dist);
+                            const dist = (0, path_1.resolve)(outputPath);
+                            if (!fs_1.default.existsSync(dist)) {
+                                fs_1.default.mkdirSync(dist);
                             }
                             const staticPath = 'static';
-                            const destpath = resolve(dist, staticPath);
-                            if (!fs.existsSync(destpath)) {
-                                fs.mkdirSync(destpath);
+                            const destpath = (0, path_1.resolve)(dist, staticPath);
+                            if (!fs_1.default.existsSync(destpath)) {
+                                fs_1.default.mkdirSync(destpath);
                             }
-                            const destpathWithAsset = resolve(destpath, basename(absolutePath));
-                            fs.copyFileSync(absolutePath, destpathWithAsset);
-                            return `${staticPath}/${basename(absolutePath)}`;
+                            const destpathWithAsset = (0, path_1.resolve)(destpath, (0, path_1.basename)(absolutePath));
+                            fs_1.default.copyFileSync(absolutePath, destpathWithAsset);
+                            return `${staticPath}/${(0, path_1.basename)(absolutePath)}`;
                         },
                         assetsPath: `${outputPath}/static/`,
                     }),
                     require('postcss-flexbugs-fixes'),
-                    autoprefixer({
+                    (0, autoprefixer_1.default)({
                         remove: false,
                         flexbox: 'no-2009',
                     }),
                 ],
             }),
-            nodeResolve({
+            (0, plugin_node_resolve_1.default)({
                 mainFields: ['module', 'jsnext:main', 'main'],
                 extensions,
             }),
             ...(isTypeScript
                 ? [
-                    typescript2({
+                    (0, rollup_plugin_typescript2_1.default)({
                         cwd,
                         clean: true,
-                        cacheRoot: `${tempDir}/.rollup_plugin_typescript2_cache`,
-                        tsconfig: join(cwd, 'tsconfig.json'),
+                        cacheRoot: `${temp_dir_1.default}/.rollup_plugin_typescript2_cache`,
+                        tsconfig: (0, path_1.join)(cwd, 'tsconfig.json'),
                         tsconfigDefaults: {
                             compilerOptions: {
                                 // Generate declaration files by default
@@ -147,18 +153,18 @@ export default function (opts) {
                         },
                         transformers: [
                             () => ({
-                                before: [createTransformer()],
+                                before: [(0, typescript_plugin_styled_components_1.createTransformer)()],
                             }),
                         ],
                         check: true,
                     }),
                 ]
                 : []),
-            babel(babelOpts),
-            json(),
-            image(),
-            alias({
-                entries: { '@': resolve('./src.js') },
+            (0, plugin_babel_1.default)(babelOpts),
+            (0, plugin_json_1.default)(),
+            (0, plugin_image_1.default)(),
+            (0, plugin_alias_1.default)({
+                entries: { '@': (0, path_1.resolve)('./src') },
             }),
         ];
     }
@@ -170,7 +176,7 @@ export default function (opts) {
                     output: {
                         format,
                         ...(output || {}),
-                        file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
+                        file: (0, path_1.join)(cwd, `es/${(output && output.file) || 'index.js'}`),
                     },
                     onwarn,
                     plugins: [...getPlugins({ outputPath: 'es' })],
@@ -183,17 +189,17 @@ export default function (opts) {
                     input,
                     output: {
                         format,
-                        name: pkg.name && camelCase(basename(pkg.name)),
+                        name: pkg.name && camelCase((0, path_1.basename)(pkg.name)),
                         ...(output || {}),
-                        file: join(cwd, `dist/${(output && output.file) || 'index.js'}`),
+                        file: (0, path_1.join)(cwd, `dist/${(output && output.file) || 'index.js'}`),
                     },
                     onwarn,
                     plugins: [
                         ...getPlugins({ minCSS: true, outputPath: 'dist' }),
-                        replace({
+                        (0, plugin_replace_1.default)({
                             'process.env.NODE_ENV': JSON.stringify('production'),
                         }),
-                        terser(terserOpts),
+                        (0, plugin_terser_1.default)(terserOpts),
                     ],
                     external,
                 },
@@ -202,3 +208,4 @@ export default function (opts) {
             throw new Error(`Unsupported type ${type}`);
     }
 }
+exports.default = default_1;
