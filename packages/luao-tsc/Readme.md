@@ -5,12 +5,14 @@
     pnpm add -D luao-tsc
 ```
 - 配置
-```package.json
+```
+ // package.json
  "scripts": {
     "build": "luao-tsc",
   },
 ```
-```tsconfig.json
+```
+ // tsconfig.json
 {
   ...
   "luaoOutDir":["lib"],
