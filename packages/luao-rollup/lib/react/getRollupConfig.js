@@ -43,6 +43,7 @@ export default async function (opts) {
         pkg = await import(join(cwd, 'package.json'), {
             assert: { type: 'json' }
         });
+        pkg = pkg.default;
     }
     catch (e) { }
     const babelOpts = {
