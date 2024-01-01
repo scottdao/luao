@@ -1,15 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildReact = void 0;
-const path_1 = require("path");
-const rimraf_1 = require("rimraf");
-const signale_1 = __importDefault(require("signale"));
-const rollup_1 = __importDefault(require("./rollup"));
-const getUserConfig_1 = __importDefault(require("../utils/getUserConfig"));
-const index_1 = require("../utils/index");
+import { join } from 'path';
+import { rimraf } from 'rimraf';
+import signale from 'signale';
+import rollup from './rollup.js';
+import getUserConfig from '../utils/getUserConfig.js';
+import { getExistFile } from '../utils/index.js';
 /**
  * 默认支持esm和umd两种格式
  */
@@ -25,13 +19,13 @@ const defaultBundleOpts = {
 };
 async function getBundleOpts({ entry }) {
     entry =
-        entry !== null && entry !== void 0 ? entry : (0, index_1.getExistFile)([
+        entry !== null && entry !== void 0 ? entry : getExistFile([
             'src/index.tsx',
             'src/index.ts',
             'src/index.jsx',
             'src/index.js',
         ]);
-    const userConfig = await (0, getUserConfig_1.default)();
+    const userConfig = await getUserConfig();
     const userConfigs = Array.isArray(userConfig) ? userConfig : [userConfig];
     return userConfigs.map((_userConfig) => ({
         entry,
@@ -39,12 +33,12 @@ async function getBundleOpts({ entry }) {
         ..._userConfig,
     }));
 }
-async function buildReact(props) {
+export async function buildReact(props) {
     const cwd = process.cwd();
-    const global = signale_1.default.scope('luao component bundler');
+    const global = signale.scope('luao component bundler');
     try {
         await Promise.all(['dist', 'es'].map((path) => new Promise((resolve, reject) => {
-            (0, rimraf_1.rimraf)((0, path_1.join)(cwd, path)).then(() => {
+            rimraf(join(cwd, path)).then(() => {
                 resolve('done');
             }).catch(reject);
             // rimraf(join(cwd, path), (error) => {
@@ -69,7 +63,7 @@ async function buildReact(props) {
                 pre.push(new Promise((resolve) => {
                     const umd = global.scope('luao component ->UMD<-');
                     umd.pending('打包UMD格式...');
-                    resolve((0, rollup_1.default)({
+                    resolve(rollup({
                         cwd,
                         type: 'umd',
                         entry: bundleOpt.entry,
@@ -86,7 +80,7 @@ async function buildReact(props) {
                     const importLibToEs = esm && esm.importLibToEs;
                     const esmSignale = global.scope('luao component ->ESM<-');
                     esmSignale.pending('打包ESM格式...');
-                    resolve((0, rollup_1.default)({
+                    resolve(rollup({
                         cwd,
                         type: 'esm',
                         entry: bundleOpt.entry,
@@ -112,4 +106,3 @@ async function buildReact(props) {
         process.exit(1);
     }
 }
-exports.buildReact = buildReact;

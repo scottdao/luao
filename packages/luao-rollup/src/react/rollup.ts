@@ -12,7 +12,7 @@ interface IRollupOpts {
 
 async function build(entry: string, opts: IRollupOpts) {
   const { cwd, type, bundleOpts } = opts;
-  const rollupConfigs = getRollupConfig({
+  const rollupConfigs = await getRollupConfig({
     cwd,
     type,
     entry,

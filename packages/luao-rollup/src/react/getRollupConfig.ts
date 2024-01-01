@@ -7,6 +7,8 @@ import  terser  from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
 import typescript2 from 'rollup-plugin-typescript2';
+import typescript1 from '@rollup/plugin-typescript';
+import { dts } from "rollup-plugin-dts";
 import alias from '@rollup/plugin-alias';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
@@ -22,6 +24,11 @@ import tempDir from 'temp-dir';
 import autoprefixer from 'autoprefixer';
 import { createTransformer } from 'typescript-plugin-styled-components';
 import { IBundleOptions } from '../types';
+import postCssImport from 'postcss-import';
+import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import typescript3 from 'typescript';
+import tslib from 'tslib'
 
 interface IGetRollupConfigOpts {
   cwd: string;
@@ -47,17 +54,19 @@ const onwarn: RollupOptions['onwarn'] = (warning) => {
   }
 };
 
-export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
+export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions[]> {
   const { cwd, type, entry, bundleOpts, importLibToEs } = opts;
   const { output, extraExternals = [] } = bundleOpts;
 
   const entryExt = extname(entry);
   const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
-  const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+  const extensions = [...DEFAULT_EXTENSIONS,'.js', '.jsx', '.ts', '.tsx'];
 
   let pkg: IPkg = {};
   try {
-    pkg = require(join(cwd, 'package.json'));
+    pkg = await import(join(cwd, 'package.json'), {
+      assert: { type: 'json' }
+  });
   } catch (e) {}
 
   const babelOpts = {
@@ -78,7 +87,8 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
     exclude: /\/node_modules\//,
   };
   if (importLibToEs && type === 'esm') {
-    babelOpts.plugins.push(require.resolve('../dist/utils/importLibToEs'));
+    const values = await import('../utils/importLibToEs')
+    babelOpts.plugins.push(values);
   }
 
   const input = join(cwd, entry);
@@ -129,7 +139,8 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
         use: ['sass', 'less'],
         plugins: [
           // 先处理@import
-          require('postcss-import')(),
+          // require('postcss-import')(),
+          postCssImport(),
           // 将小于10kb的资源转换成base64，大于10kb输出到static文件夹下
           url({
             url: 'inline',
@@ -154,7 +165,7 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
             },
             assetsPath: `${outputPath}/static/`,
           }),
-          require('postcss-flexbugs-fixes'),
+          postcssFlexbugsFixes,
           autoprefixer({
             remove: false,
             flexbox: 'no-2009',
@@ -167,30 +178,16 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
       }),
       ...(isTypeScript
         ? [
-            typescript2({
-              cwd,
-              clean: true,
-              cacheRoot: `${tempDir}/.rollup_plugin_typescript2_cache`,
-              tsconfig: join(cwd, 'tsconfig.json'),
-              tsconfigDefaults: {
-                compilerOptions: {
-                  // Generate declaration files by default
-                  declaration: true,
-                },
-              },
-              tsconfigOverride: {
-                compilerOptions: {
-                  // Support dynamic import
-                  target: 'esnext',
-                },
-              },
-              transformers: [
-                () => ({
-                  before: [createTransformer()],
-                }),
-              ],
-              check: true,
-            }),
+          typescript1({
+            include:['.ts','.tsx', '.vue'],
+            typescript: typescript3,
+            tslib: tslib as any,
+            tsconfig: join(cwd, 'tsconfig.json'),
+            cacheDir: `${tempDir}/.rollup.cache`,
+            transformers: [{
+                before:[createTransformer()]
+            }] as any
+        })
           ]
         : []),
       babel(babelOpts),

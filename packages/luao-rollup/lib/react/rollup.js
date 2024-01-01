@@ -1,13 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const rollup_1 = require("rollup");
-const getRollupConfig_1 = __importDefault(require("./getRollupConfig"));
+import { rollup } from 'rollup';
+import getRollupConfig from './getRollupConfig.js';
 async function build(entry, opts) {
     const { cwd, type, bundleOpts } = opts;
-    const rollupConfigs = (0, getRollupConfig_1.default)({
+    const rollupConfigs = await getRollupConfig({
         cwd,
         type,
         entry,
@@ -15,11 +10,11 @@ async function build(entry, opts) {
     });
     for (const rollupConfig of rollupConfigs) {
         const { output, ...input } = rollupConfig;
-        const bundle = await (0, rollup_1.rollup)(input);
+        const bundle = await rollup(input);
         await bundle.write(output);
     }
 }
-async function default_1(opts) {
+export default async function (opts) {
     if (Array.isArray(opts.entry)) {
         const { entry: entries } = opts;
         for (const entry of entries) {
@@ -30,4 +25,3 @@ async function default_1(opts) {
         await build(opts.entry, opts);
     }
 }
-exports.default = default_1;

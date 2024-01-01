@@ -7,5 +7,5 @@ interface IGetRollupConfigOpts {
     importLibToEs?: boolean;
     bundleOpts: IBundleOptions;
 }
-export default function (opts: IGetRollupConfigOpts): RollupOptions[];
+export default function (opts: IGetRollupConfigOpts): Promise<RollupOptions[]>;
 export {};

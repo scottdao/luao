@@ -53,7 +53,7 @@ const baseOptionsMap: Map<string,(opts:baseMapType)=>any> = new Map([
                 plugins: [
                 require.resolve('@babel/plugin-proposal-export-default-from'),
                 require.resolve('babel-plugin-const-enum'),
-                [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
+                // [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
                 [
                     require.resolve('babel-plugin-styled-components'),
                     {
@@ -63,14 +63,15 @@ const baseOptionsMap: Map<string,(opts:baseMapType)=>any> = new Map([
                     minify: true,
                     pure: true,
                     },
-                ],
+                    ],
+                [require.resolve('@babel/plugin-transform-class-properties'), { loose: true }],
                 options.pluginTransformRuntime && [
                     require.resolve('@babel/plugin-transform-runtime'),
                     {
                     helpers: true,
                     regenerator: true,
                     absoluteRuntime: dirname(require.resolve('../package.json')),
-                    version: '^7.17.9',
+                    version: '^7.23.7',
                     ...options.pluginTransformRuntime,
                     },
                 ],
