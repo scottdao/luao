@@ -179,7 +179,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
       ...(isTypeScript
         ? [
           typescript1({
-            include:['.ts','.tsx', '.vue'],
+            // include:['.ts','.tsx', '.vue'],
             typescript: typescript3,
             tslib: tslib as any,
             tsconfig: join(cwd, 'tsconfig.json'),

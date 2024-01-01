@@ -139,14 +139,14 @@ export default async function (opts) {
             ...(isTypeScript
                 ? [
                     typescript1({
-                        include:['.ts','.tsx', '.vue'],
+                        // include:['.ts','.tsx', '.vue'],
                         typescript: typescript3,
                         tslib: tslib,
                         tsconfig: join(cwd, 'tsconfig.json'),
                         cacheDir: `${tempDir}/.rollup.cache`,
                         transformers: [{
-                            before:[createTransformer()]
-                        }]
+                                before: [createTransformer()]
+                            }]
                     })
                 ]
                 : []),
