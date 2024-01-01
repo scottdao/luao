@@ -36,8 +36,8 @@ importers:
   example/packages/luao-rollup-ex:
     dependencies:
       luao-rollup:
-        specifier: ^1.0.6
-        version: 1.0.6(styled-components@6.1.6)
+        specifier: ^1.0.7
+        version: 1.0.7(styled-components@6.1.6)
       requirejs:
         specifier: ^2.3.6
         version: 2.3.6
@@ -143,8 +143,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       luao-babel-preset:
-        specifier: ^1.0.3
-        version: 1.0.3(styled-components@6.1.6)
+        specifier: ^1.0.5
+        version: 1.0.5(styled-components@6.1.6)
       postcss:
         specifier: ^8.4.32
         version: 8.4.32
@@ -5932,8 +5932,8 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /luao-babel-preset@1.0.3(styled-components@6.1.6):
-    resolution: {integrity: sha512-yBLycXxrmmXXIfvcinoeP6KyA5BtAJoM0NBAeooKYqg2uanYkwxCv0bOK34rOKrZAxcK9EiKj9Zml8yXIXfAgQ==}
+  /luao-babel-preset@1.0.5(styled-components@6.1.6):
+    resolution: {integrity: sha512-QKuF8T7BVHq1Ce8Q3/4hC4bDpHdpibcmz9oqkEQKRW5QEuunhAvUzWdxeCNbvPEfhScwQGQeUkIUheRj6hK6sA==}
     dependencies:
       '@babel/core': 7.23.7
       '@babel/plugin-proposal-decorators': 7.23.7(@babel/core@7.23.7)
@@ -5954,8 +5954,8 @@ packages:
       - supports-color
     dev: false
 
-  /luao-rollup@1.0.6(styled-components@6.1.6):
-    resolution: {integrity: sha512-Knd5bqHOC7578P+LRMVxLeEFKCzzjUFhQWDs2/3Ebsxq1Xpg14kXb8F66xxLcB3dwJARMyrJ69OMn/qn/71zGw==}
+  /luao-rollup@1.0.7(styled-components@6.1.6):
+    resolution: {integrity: sha512-oXNH1C26aar11Ur99qejCBoxW++AvdpcHl3QPBSBsLfB2OBkKDcWX28Ome9VcCRu9Ol5kGs4QGfjLO1OLKvo9w==}
     dependencies:
       '@babel/core': 7.23.7
       '@rollup/plugin-alias': 5.1.0(rollup@4.9.2)
@@ -5971,7 +5971,7 @@ packages:
       '@svgr/rollup': 8.1.0(rollup@4.9.2)(typescript@5.3.3)
       autoprefixer: 10.4.16(postcss@8.4.32)
       lodash: 4.17.21
-      luao-babel-preset: 1.0.3(styled-components@6.1.6)
+      luao-babel-preset: 1.0.5(styled-components@6.1.6)
       postcss: 8.4.32
       postcss-flexbugs-fixes: 5.0.2(postcss@8.4.32)
       postcss-import: 15.1.0(postcss@8.4.32)

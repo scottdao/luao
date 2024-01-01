@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "luao-rollup": "^1.0.6",
+    "luao-rollup": "^1.0.7",
     "requirejs": "^2.3.6"
   }
 }
