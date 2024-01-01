@@ -10,7 +10,7 @@ export default async function (): Promise<Array<IBundleOptions> | IBundleOptions
     const userConfigFn = await import(userConfigPath);
     // TODO 校验扩展项是否配置正确
     if (typeof userConfigFn === 'object') {
-      return userConfigFn;
+      return userConfigFn.default;
     }
   }
   return {};

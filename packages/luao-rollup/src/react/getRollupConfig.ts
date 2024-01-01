@@ -39,6 +39,11 @@ interface IGetRollupConfigOpts {
 }
 
 interface IPkg {
+  default?: {
+    dependencies?: Record<string, any>;
+    peerDependencies?: Record<string, any>;
+    name?: string;
+  };
   dependencies?: Record<string, any>;
   peerDependencies?: Record<string, any>;
   name?: string;
@@ -66,7 +71,8 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
   try {
     pkg = await import(join(cwd, 'package.json'), {
       assert: { type: 'json' }
-  });
+    });
+    pkg = pkg.default as any
   } catch (e) {}
 
   const babelOpts = {
