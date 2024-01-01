@@ -36,8 +36,8 @@ importers:
   example/packages/luao-rollup-ex:
     dependencies:
       luao-rollup:
-        specifier: ^1.0.5
-        version: 1.0.5(styled-components@6.1.6)
+        specifier: ^1.0.6
+        version: 1.0.6(styled-components@6.1.6)
       requirejs:
         specifier: ^2.3.6
         version: 2.3.6
@@ -5954,8 +5954,8 @@ packages:
       - supports-color
     dev: false
 
-  /luao-rollup@1.0.5(styled-components@6.1.6):
-    resolution: {integrity: sha512-b/UgaSYuIlBmxXQL3AqYGemxLrodXZg+DSwoFUsJ/+QWCNubiVLdVy9MS0kR3SsrpMuMuRupZau7L2qlQMycew==}
+  /luao-rollup@1.0.6(styled-components@6.1.6):
+    resolution: {integrity: sha512-Knd5bqHOC7578P+LRMVxLeEFKCzzjUFhQWDs2/3Ebsxq1Xpg14kXb8F66xxLcB3dwJARMyrJ69OMn/qn/71zGw==}
     dependencies:
       '@babel/core': 7.23.7
       '@rollup/plugin-alias': 5.1.0(rollup@4.9.2)
