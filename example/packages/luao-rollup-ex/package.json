@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "luao-server rollup"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,9 @@
   "dependencies": {
     "luao-rollup": "^1.0.7",
     "requirejs": "^2.3.6"
+  },
+  "devDependencies": {
+    "luao-server": "^0.0.1",
+    "url": "^0.11.3"
   }
 }

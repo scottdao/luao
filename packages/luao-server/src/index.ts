@@ -1,8 +1,9 @@
-import { join } from 'path'
+import { join, dirname } from 'path'
 import { Command } from 'commander'
 import fs from 'fs'
 import signale from 'signale'
 import { sync } from 'cross-spawn';
+import url from 'url'
 
 // const currentNodeVersion = process.versions.node;
 // const semver = currentNodeVersion.split('.');
@@ -20,7 +21,8 @@ import { sync } from 'cross-spawn';
 // }
 
 const handleCmdAction = async (name: string, pkg?: any) => {
-    const filePathName = join(process.cwd(), `/dist/commands/${name}.js`)
+    const dir = dirname(url.fileURLToPath(import.meta.url))
+    const filePathName = join(dir, `/commands/${name}.js`)
     if (!fs.existsSync(filePathName)) {
         signale.error(`${name} command no existing`);
         process.exit(1);
@@ -28,7 +30,7 @@ const handleCmdAction = async (name: string, pkg?: any) => {
     const argv = process.argv.slice(2);
     const spawn = sync('node', [filePathName, ...argv.slice(1)], {
         env: process.env,
-        cwd: process.cwd(),
+        cwd: dir,
         stdio: 'inherit',
         shell: true,
     });
