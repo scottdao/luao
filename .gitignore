@@ -2,6 +2,7 @@
 /node_modules
 /packages/**/dist
 /packages/*/node_modules
+/example/packages/*/node_modules
 /packages/*/src/.umi
 /packages/*/src/.umi-production
 /packages/*/src/.umi-test
