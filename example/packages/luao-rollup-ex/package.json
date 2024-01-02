@@ -16,7 +16,7 @@
     "requirejs": "^2.3.6"
   },
   "devDependencies": {
-    "luao-server": "^0.0.1",
+    "luao-server": "^0.0.2",
     "url": "^0.11.3"
   }
 }
