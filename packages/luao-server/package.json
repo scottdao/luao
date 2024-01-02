@@ -12,6 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "files": ["bin", "dist"],
   "bin": {
     "luao-server": "./bin/index.js"
   },
