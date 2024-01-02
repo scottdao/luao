@@ -228,6 +228,28 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.10.6)(typescript@5.3.3)
 
+  packages/luao-server:
+    dependencies:
+      commander:
+        specifier: ^11.1.0
+        version: 11.1.0
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
+      luao-rollup:
+        specifier: ^1.0.7
+        version: 1.0.7(styled-components@6.1.6)
+      signale:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      luao-tsc:
+        specifier: ^1.0.2
+        version: 1.0.2
+
   packages/luao-tsc:
     dependencies:
       rimraf:
@@ -2795,6 +2817,12 @@ packages:
       '@types/node': 20.10.6
     dev: false
 
+  /@types/cross-spawn@6.0.6:
+    resolution: {integrity: sha512-fXRhhUkG4H3TQk5dBhQ7m/JDdSNHKwR2BBia62lhwEIq9xGiQKLxd6LymNhn47SjXhsUEPmxi+PKw2OkW4LLjA==}
+    dependencies:
+      '@types/node': 20.10.6
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
@@ -3811,6 +3839,11 @@ packages:
     dependencies:
       delayed-stream: 1.0.0
     dev: true
+
+  /commander@11.1.0:
+    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
+    engines: {node: '>=16'}
+    dev: false
 
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}

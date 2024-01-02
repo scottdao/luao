@@ -1,13 +1,14 @@
 {
-  "name": "@luao/util-shared",
+  "name": "luao-util",
   "version": "1.0.0",
-  "description": "指令工具",
+  "description": "luao for tools",
   "main": "./dis/index.js",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {
     "build":"rm -rf ./dist && yarn tsc ",
-    "dev":"luao-cli"
+    "dev":"luao-tsc"
   },
   "files": [
     "bin",

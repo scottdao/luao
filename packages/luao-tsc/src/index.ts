@@ -63,7 +63,6 @@ async function runSpawnCmd(value: string) {
     return new Promise((resolve, reject) => { 
         const tsc = childProcess.spawn(value)
         tsc.stdout.on('data', (data) => {
-            // rewriteFn()
             resolve('data')
             console.log(`stdout: ${data}`);
         });
