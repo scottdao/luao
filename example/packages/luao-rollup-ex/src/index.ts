@@ -1,6 +1,6 @@
 // import './index.less';
 import { dirname } from 'path';
-
+import './comman/index'
 
 interface IOptions {
     presetEnv: any;
