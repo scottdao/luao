@@ -1,23 +1,28 @@
 {
   "name": "luao-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "luao-tsc",
-    "test": "node dist/index.js rollup"
+    "build": "luao-server rollup"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "files": ["bin", "dist"],
+  "files": [
+    "bin",
+    "dist"
+  ],
   "bin": {
     "luao-server": "./bin/index.js"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.6",
+    "@types/signale": "^1.4.7",
+    "luao-server": "^0.0.2",
     "luao-tsc": "^1.0.2"
   },
   "dependencies": {

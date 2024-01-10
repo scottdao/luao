@@ -30,7 +30,7 @@ const handleCmdAction = async (name: string, pkg?: any) => {
     const argv = process.argv.slice(2);
     const spawn = sync('node', [filePathName, ...argv.slice(1)], {
         env: process.env,
-        cwd: dir,
+        cwd: process.cwd(),
         stdio: 'inherit',
         shell: true,
     });
