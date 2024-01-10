@@ -3,7 +3,9 @@ import { Command } from 'commander'
 import fs from 'fs'
 import signale from 'signale'
 import { sync } from 'cross-spawn';
-import url from 'url'
+import url from 'url';
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
 // const currentNodeVersion = process.versions.node;
 // const semver = currentNodeVersion.split('.');
@@ -42,12 +44,13 @@ const handleCmdAction = async (name: string, pkg?: any) => {
 const program = new Command();
 const handleFileOptions = async () => {
     const filePathName = join(`../package.json`)
-    const pkg = await import(filePathName, { 'assert': {"type":'json'} })
+    const pkg = require(filePathName)
+    // console.log(pkg)
     program
-    .version(pkg.default.version, '-v, --version')
+    .version(pkg.version, '-v, --version')
     .argument('<name> [env]', 'running server...')
         .action((name) => {
-            handleCmdAction(name, pkg.default)
+            handleCmdAction(name, pkg)
         }
     ).parse(process.argv)
     return Promise.resolve('done')

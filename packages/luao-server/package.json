@@ -14,7 +14,8 @@
   "license": "ISC",
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "es"
   ],
   "bin": {
     "luao-server": "./bin/index.js"
@@ -22,7 +23,7 @@
   "devDependencies": {
     "@types/cross-spawn": "^6.0.6",
     "@types/signale": "^1.4.7",
-    "luao-server": "^0.0.2",
+    "luao-server": "0.0.3",
     "luao-tsc": "^1.0.2"
   },
   "dependencies": {

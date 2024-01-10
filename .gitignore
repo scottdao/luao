@@ -1,6 +1,8 @@
 .DS_Store
 /node_modules
 /packages/**/dist
+/packages/**/es
+/packages/**/lib
 /packages/*/node_modules
 /example/packages/*/node_modules
 /example/packages/*/es
