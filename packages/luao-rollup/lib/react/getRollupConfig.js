@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { basename, extname, join, resolve } from 'path';
-import  setBabelPresetfn  from 'luao-babel-preset';
-const setBabelPreset = setBabelPresetfn.setBabelPreset
+import setBabelPresetFn from 'luao-babel-preset';
+const setBabelPreset = setBabelPresetFn.setBabelPreset;
 import { visualizer } from 'rollup-plugin-visualizer';
 import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
@@ -51,16 +51,14 @@ export default async function (opts) {
         ...setBabelPreset({
             presetEnv: {},
             presetReact: {},
-            presetTypeScript: {
-               
-            },
+            presetTypeScript: {},
             pluginTransformRuntime: type === 'esm' ? {
-                absoluteRuntime: false
+                absoluteRuntime: false,
+                "corejs": 3
             } : undefined,
             type,
             projectType: 'React'
         }),
-        // babelHelpers:"bundled",
         babelHelpers: type === 'esm'
             ? 'runtime'
             : 'bundled',
@@ -93,7 +91,7 @@ export default async function (opts) {
         return [
             commonjs({
                 include: /node_modules/,
-                extensions:extensions
+                extensions
             }),
             visualizer(),
             strip({
@@ -147,12 +145,13 @@ export default async function (opts) {
             ...(isTypeScript
                 ? [
                     typescript1({
+                        // include:['.ts','.tsx', '.vue'],
                         typescript: typescript3,
                         tslib: tslib,
+                        // compilerOptions: { module: 'CommonJS' } ,
                         tsconfig: join(cwd, 'tsconfig.json'),
                         cacheDir: `${tempDir}/.rollup.cache`,
                         outDir: join(cwd, type === 'esm' ? `es` : 'dist'),
-                        filterRoot: join(cwd,'src'),
                         transformers: [{
                                 before: [createTransformer()]
                             }]
@@ -163,7 +162,7 @@ export default async function (opts) {
             json(),
             image(),
             alias({
-                entries: { '@': resolve('./src') },
+                entries: { '@': resolve('./src.js') },
             }),
         ];
     }
@@ -175,7 +174,7 @@ export default async function (opts) {
                     output: {
                         format,
                         dir: join(cwd, `es`),
-                        entryFileNames:'[name].js',
+                        entryFileNames: '[name].js',
                         chunkFileNames: '[name].js',
                         compact: true,
                         minifyInternalExports: true,
