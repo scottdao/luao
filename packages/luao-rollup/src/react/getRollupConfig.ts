@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { basename, extname, join, resolve } from 'path';
-import { setBabelPreset } from 'luao-babel-preset';
+import  setBabelPresetFn  from 'luao-babel-preset';
+const setBabelPreset = setBabelPresetFn.setBabelPreset;
 import { ModuleFormat, RollupOptions } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
 import  terser  from '@rollup/plugin-terser';
@@ -80,7 +81,10 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
       presetEnv: {},
       presetReact: {},
       presetTypeScript: {},
-      pluginTransformRuntime: type === 'esm' ? {} : undefined,
+      pluginTransformRuntime: type === 'esm' ? {
+        absoluteRuntime: false,
+        "corejs":3
+      } : undefined,
       type,
       projectType:'React'
     }),
@@ -129,6 +133,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
     return [
       commonjs({
         include: /node_modules/,
+        extensions
       }),
       visualizer(),
       strip({
@@ -188,8 +193,10 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             // include:['.ts','.tsx', '.vue'],
             typescript: typescript3,
             tslib: tslib as any,
+            // compilerOptions: { module: 'CommonJS' } ,
             tsconfig: join(cwd, 'tsconfig.json'),
             cacheDir: `${tempDir}/.rollup.cache`,
+            outDir:join(cwd, type === 'esm'?`es`:'dist'),
             transformers: [{
                 before:[createTransformer()]
             }] as any
@@ -212,8 +219,15 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
           input,
           output: {
             format,
+            dir: join(cwd, `es`),
+            entryFileNames:'[name].js',
+            chunkFileNames: '[name].js',
+            compact: true,
+            minifyInternalExports: true,
+            preserveModules: true,
+            preserveModulesRoot: 'src',
             ...(output || {}),
-            file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
+            // file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
           plugins: [...getPlugins({ outputPath: 'es' })],
@@ -242,7 +256,6 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
           external,
         },
       ];
-
     default:
       throw new Error(`Unsupported type ${type}`);
   }
