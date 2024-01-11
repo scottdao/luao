@@ -2521,6 +2521,26 @@ lru-cache@^6.0.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.1.0.tgz#2098d41c2dc56500e6c88584aa656c84de7d0484"
   integrity sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==
 
+luao-babel-preset@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/luao-babel-preset/-/luao-babel-preset-1.0.6.tgz#99f1dc9dedc064ed58370ef02936bac39ad4a97f"
+  integrity sha512-NTYKNpXtrl6FzGTX2ztjiitiFE+kYXGgfEFIlHR0WscYAdsHWL3T+02O96tLOaS6hDkdR0DLFPfMMBoJ2Nx2kQ==
+  dependencies:
+    "@babel/core" "7.23.7"
+    "@babel/plugin-proposal-decorators" "7.23.7"
+    "@babel/plugin-proposal-export-default-from" "7.23.3"
+    "@babel/plugin-transform-class-properties" "^7.23.3"
+    "@babel/plugin-transform-runtime" "7.23.7"
+    "@babel/preset-env" "7.23.7"
+    "@babel/preset-react" "7.23.3"
+    "@babel/preset-typescript" "7.23.3"
+    "@babel/runtime" "7.23.7"
+    "@babel/runtime-corejs3" "7.23.7"
+    babel-plugin-const-enum "1.2.0"
+    babel-plugin-styled-components "2.1.4"
+    core-js "3.35.0"
+    regenerator-runtime "0.14.1"
+
 luao-babel-preset@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/luao-babel-preset/-/luao-babel-preset-1.0.5.tgz#0abb28af5aacf048274667fee9874852e65a4b91"
@@ -2578,14 +2598,51 @@ luao-rollup@^1.0.7:
     typescript "^5.3.3"
     typescript-plugin-styled-components "^3.0.0"
 
-luao-server@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/luao-server/-/luao-server-0.0.2.tgz#8a7c14432403b9b1a7c3055095b6a38d56a8efef"
-  integrity sha512-l58GkxfAWH7mEMw/jwKdGtj48Zia3z+7dyhB9kVK0fAlNTO6KP/GQCJvXh4c9i7rAjWnECiNW11CKO7EwQFZ6w==
+luao-rollup@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/luao-rollup/-/luao-rollup-1.0.9.tgz#54f65b58d5ad574089889abeece095ca025ace04"
+  integrity sha512-7XxHQ3lzkdDUqka5kk8h9GG6RJQyw67el1QIgbPP7C0nOQCUuFrSCvONcnJlblmyCoOyZZWjBESqyDkzoGc4vg==
+  dependencies:
+    "@babel/core" "7.23.7"
+    "@rollup/plugin-alias" "^5.1.0"
+    "@rollup/plugin-babel" "^6.0.4"
+    "@rollup/plugin-commonjs" "^25.0.7"
+    "@rollup/plugin-image" "^3.0.3"
+    "@rollup/plugin-json" "^6.1.0"
+    "@rollup/plugin-node-resolve" "^15.2.3"
+    "@rollup/plugin-replace" "^5.0.5"
+    "@rollup/plugin-strip" "^3.0.4"
+    "@rollup/plugin-terser" "^0.4.4"
+    "@rollup/plugin-typescript" "^11.1.5"
+    "@svgr/rollup" "^8.1.0"
+    autoprefixer "^10.4.16"
+    lodash "^4.17.21"
+    luao-babel-preset "1.0.6"
+    postcss "^8.4.32"
+    postcss-flexbugs-fixes "^5.0.2"
+    postcss-import "^15.1.0"
+    postcss-url "^10.1.3"
+    rimraf "^5.0.5"
+    rollup "^4.9.2"
+    rollup-plugin-dts "^6.1.0"
+    rollup-plugin-node-polyfills "^0.2.1"
+    rollup-plugin-postcss "^4.0.2"
+    rollup-plugin-typescript2 "^0.36.0"
+    rollup-plugin-visualizer "^5.12.0"
+    signale "^1.4.0"
+    temp-dir "^3.0.0"
+    tslib "^2.6.2"
+    typescript "^5.3.3"
+    typescript-plugin-styled-components "^3.0.0"
+
+luao-server@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/luao-server/-/luao-server-0.0.4.tgz#7660fd927560ff5cec91e26cc276ea433a343ff0"
+  integrity sha512-RzLoAZ7MnKNcZ7Q/eAhwptczajEyVfsLzk6oZv3XVIWXxAsgtxI9oTgjqSfZaqSslfrLjALluGRjitY7JCbbvg==
   dependencies:
     commander "^11.1.0"
     cross-spawn "^7.0.3"
-    luao-rollup "^1.0.7"
+    luao-rollup "^1.0.9"
     signale "^1.4.0"
 
 magic-string@^0.25.3:

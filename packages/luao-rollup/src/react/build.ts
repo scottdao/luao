@@ -19,7 +19,47 @@ const defaultBundleOpts: IBundleOptions = {
     sourcemap: false,
   },
 };
-
+const CONSTDIR = ['dist', 'es']
+const removeHtmlFile = (option: IBundleOptions[]) => {
+    const queryAllDir = ({ fileSuffix = '.html', ignore = [...CONSTDIR, 'node_modules'] }) => {
+        const rph = process.cwd();
+        const dirs = fs.readdirSync(rph)
+        // console.log(dirs, 'dirs');
+        let stack = [...dirs]
+        let Filepath = rph;
+        signale.start('clear file start...')
+        while (stack.length) {
+            const pathnames = stack.pop()
+            if (ignore.some(item => item === pathnames)) { 
+                continue;
+            }
+            //判断是否是文件还是目录
+            if (/(\.(.+)$)/g.test(pathnames)) {
+                if (!new RegExp(`${fileSuffix}$`, 'g').test(pathnames)) { 
+                    continue;
+                }
+                const htmlFile = `${Filepath}/${pathnames}`
+                if (fs.existsSync(htmlFile)) {
+                    rimraf(htmlFile).then(res => {
+                        signale.success('clear html files');
+                    }).catch(err => { 
+                        signale.error(err);
+                    })
+                }
+            } else {
+                Filepath += `/${pathnames}`
+                const dir = fs.readdirSync(Filepath)
+                stack.push(...dir);
+            }
+        }
+    }
+    option.forEach(element => {
+        if (element.removeHtmlFile === true) { 
+            // 清除html文件
+            queryAllDir({})
+        }
+    });
+}
 async function getBundleOpts({ entry }: { entry?: string }):Promise<IBundleOptions[]>  {
   entry =
     entry ??
@@ -45,7 +85,6 @@ interface RollupBuildProps {
 export async function buildReact(props?: RollupBuildProps) {
   const cwd = process.cwd();
   const global = signale.scope('luao component bundler');
-
   try {
     await Promise.all(
       ['dist', 'es'].map(
@@ -54,12 +93,6 @@ export async function buildReact(props?: RollupBuildProps) {
             rimraf(join(cwd, path)).then(() => { 
               resolve('done')
             }).catch(reject)
-            // rimraf(join(cwd, path), (error) => {
-            //   if (error) {
-            //     reject(error);
-            //   }
-            //   resolve('done');
-            // });
           }),
       ),
     )
@@ -91,6 +124,7 @@ export async function buildReact(props?: RollupBuildProps) {
                   bundleOpts: bundleOpt,
                 }).then(() => {
                   umd.success('UMD格式打包完成');
+                  removeHtmlFile(bundleOpts)
                 }),
               );
             }),
@@ -116,6 +150,7 @@ export async function buildReact(props?: RollupBuildProps) {
                   importLibToEs,
                 }).then(() => {
                   esmSignale.success('ESM格式打包完成');
+                  removeHtmlFile(bundleOpts)
                 }),
               );
             }),

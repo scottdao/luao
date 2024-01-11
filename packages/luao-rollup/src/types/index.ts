@@ -14,7 +14,6 @@ export interface IEsm {
   }
   
   export interface IBundleOptions {
-    entry?: string | string[];
     output?: {
       name?: string;
       /**
@@ -25,6 +24,7 @@ export interface IEsm {
     extraExternals?: string[];
     esm?: 'rollup' | IEsm | false;
     umd?: IUmd | false;
+    removeHtmlFile?: boolean;
   }
   export interface IOpts {
     cwd: string;

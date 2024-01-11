@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "dev": "rm -rf ./dist && pnpm tsc",
-    "build":"luao-server rollup",
+    "build": "luao-server rollup",
     "push": "npm publish"
   },
   "repository": {
@@ -37,6 +37,6 @@
     "regenerator-runtime": "0.14.1"
   },
   "devDependencies": {
-    "luao-server": "workspace:0.0.3"
+    "luao-server": "^0.0.4"
   }
 }

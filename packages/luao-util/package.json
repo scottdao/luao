@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build":"rm -rf ./dist && yarn tsc ",
-    "dev":"luao-tsc"
+    "build": "rm -rf ./dist && yarn tsc ",
+    "dev": "luao-tsc"
   },
   "files": [
     "bin",
@@ -18,5 +18,12 @@
     "name": "liudaoyun",
     "email": "scottldy0316@gmail.com",
     "url": "https://github.com/scottdao/luao.git"
+  },
+  "dependencies": {
+    "rimraf": "^5.0.5",
+    "signale": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/signale": "^1.4.7"
   }
 }
