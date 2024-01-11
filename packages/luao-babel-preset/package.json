@@ -1,16 +1,19 @@
 {
   "name": "luao-babel-preset",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "babel preset for luao",
   "license": "ISC",
   "author": "ScottLiu",
   "main": "dist/index.js",
+  "module": "es/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "es"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && pnpm tsc",
+    "dev": "rm -rf ./dist && pnpm tsc",
+    "build":"luao-server rollup",
     "push": "npm publish"
   },
   "repository": {
@@ -32,5 +35,8 @@
     "babel-plugin-styled-components": "2.1.4",
     "core-js": "3.35.0",
     "regenerator-runtime": "0.14.1"
+  },
+  "devDependencies": {
+    "luao-server": "workspace:0.0.3"
   }
 }
