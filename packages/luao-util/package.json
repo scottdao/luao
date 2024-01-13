@@ -1,17 +1,18 @@
 {
   "name": "luao-util",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "luao for tools",
-  "main": "./dis/index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "es/index.js",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rm -rf ./dist && yarn tsc ",
+    "build": "luao-server rollup",
     "dev": "luao-tsc"
   },
   "files": [
-    "bin",
+    "es",
     "dist"
   ],
   "author": {
@@ -24,6 +25,7 @@
     "signale": "^1.4.0"
   },
   "devDependencies": {
-    "@types/signale": "^1.4.7"
+    "@types/signale": "^1.4.7",
+    "luao-server": "^0.0.4"
   }
 }
