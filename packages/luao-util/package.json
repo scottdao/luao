@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "module": "es/index.js",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "luao-server rollup",
     "dev": "luao-tsc"
