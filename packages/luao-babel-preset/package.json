@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "umd"
+    "es"
   ],
   "scripts": {
     "dev": "rm -rf ./dist && pnpm tsc",
@@ -37,6 +37,6 @@
     "regenerator-runtime": "0.14.1"
   },
   "devDependencies": {
-    "luao-server": "^0.1.0"
+    "luao-server": "^0.1.3"
   }
 }
