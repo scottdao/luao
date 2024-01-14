@@ -35,7 +35,7 @@ export const removeFile = async ({ fileSuffix, ignore }: RemoveFileProps): Promi
             const htmlFile = `${filePath}`
             // console.log(htmlFile, 'file')
             if (fs.existsSync(htmlFile)) {
-                promises.push(new Promise(resolve=>resolve(rimraf(htmlFile).then(res => { 
+                promises.push(new Promise(resolve=>resolve(rimraf(htmlFile).then(() => { 
                     return Promise.resolve('done');
                 }).catch(err => {
                     return Promise.reject(err);
