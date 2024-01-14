@@ -32,14 +32,14 @@ export const removeFile = async ({ fileSuffix, ignore }: RemoveFileProps): Promi
             if (!new RegExp(`${fileSuffix}$`, 'g').test(pathnames as string)) { 
                 continue;
             }
-            const htmlFile = `${filePath}/${pathnames}`
+            const htmlFile = `${filePath}`
             // console.log(htmlFile, 'file')
-            if (fs.existsSync(htmlFile)) { 
+            if (fs.existsSync(htmlFile)) {
                 promises.push(new Promise(resolve=>resolve(rimraf(htmlFile).then(res => { 
                     return Promise.resolve('done');
-                }).catch(err => { 
+                }).catch(err => {
                     return Promise.reject(err);
-                })))) 
+                }))))
             }
         } else {
             const dir = fs.readdirSync(filePath)
