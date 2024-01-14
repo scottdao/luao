@@ -1,6 +1,6 @@
 {
   "name": "luao-rollup",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "rollup code package for luao",
   "main": "dist/index.js",
   "type": "module",
@@ -38,7 +38,7 @@
     "autoprefixer": "^10.4.16",
     "lodash": "^4.17.21",
     "luao-babel-preset": "1.0.6",
-    "luao-util": "^0.0.2",
+    "luao-util": "^0.0.4",
     "postcss": "^8.4.32",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
@@ -66,7 +66,7 @@
     "@types/rimraf": "^4.0.5",
     "@types/signale": "^1.4.7",
     "is-windows": "^1.0.2",
-    "luao-server": "^0.0.4",
+    "luao-server": "^0.0.2",
     "luao-tsc": "1.0.2",
     "ts-node": "^10.9.2"
   }

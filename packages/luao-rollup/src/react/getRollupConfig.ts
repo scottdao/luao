@@ -236,7 +236,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             // file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
-          plugins: [...getPlugins({ outputPath: outDir }), terser(terserOpts)],
+          plugins: [...getPlugins({ outputPath: outDir })],
           external,
         },
       ];
@@ -249,7 +249,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             format,
             name: pkg.name && camelCase(basename(pkg.name)),
             ...(output || {}),
-            file: join(cwd, `${outDir}/${(output && output.file) || 'index.min.js'}`),
+            file: join(cwd, `${outDir}/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
           plugins: [

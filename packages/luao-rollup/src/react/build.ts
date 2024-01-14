@@ -22,7 +22,7 @@ const defaultBundleOpts: IBundleOptions = {
     sourcemap: false,
   },
 };
-let CONSTDIR = ['dist', 'umd']
+let CONSTDIR = ['dist', 'es']
 const removeHtmlFile = (option: IBundleOptions[], CONSTDIR: string[]) => {
     option.forEach(element => {
         if (element.removeHtmlFile === true) {
@@ -88,7 +88,7 @@ export async function buildReact(props?: RollupBuildProps) {
                   type: 'umd',
                   entry: bundleOpt.entry!,
                   bundleOpts: bundleOpt,
-                  outDir:( bundleOpt.umd !== false && bundleOpt?.umd?.dir)?bundleOpt?.umd?.dir:'umd',
+                  outDir:( bundleOpt.umd !== false && bundleOpt?.umd?.dir)?bundleOpt?.umd?.dir:'dist',
                 }).then(() => {
                   umd.success('UMD格式打包完成');
                   removeHtmlFile(bundleOpts, CONSTDIR)
@@ -113,7 +113,7 @@ export async function buildReact(props?: RollupBuildProps) {
                   entry: bundleOpt.entry!,
                   bundleOpts: bundleOpt,
                   importLibToEs,
-                  outDir:(bundleOpt.esm !== 'rollup' &&bundleOpt.esm !== false && bundleOpt?.esm?.dir)?bundleOpt?.esm?.dir:'dist',
+                  outDir:(bundleOpt.esm !== 'rollup' &&bundleOpt.esm !== false && bundleOpt?.esm?.dir)?bundleOpt?.esm?.dir:'es',
                 }).then(() => {
                   esmSignale.success('ESM格式打包完成');
                   removeHtmlFile(bundleOpts, CONSTDIR)
