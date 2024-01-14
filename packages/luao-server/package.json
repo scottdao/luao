@@ -1,6 +1,6 @@
 {
   "name": "luao-server",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,8 +14,7 @@
   "license": "ISC",
   "files": [
     "bin",
-    "dist",
-    "es"
+    "dist"
   ],
   "bin": {
     "luao-server": "./bin/index.js"
@@ -29,7 +28,7 @@
   "dependencies": {
     "commander": "^11.1.0",
     "cross-spawn": "^7.0.3",
-    "luao-rollup": "^1.0.9",
+    "luao-rollup": "^1.1.0",
     "signale": "^1.4.0"
   }
 }
