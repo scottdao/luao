@@ -4,9 +4,8 @@
   "description": "luao for tools",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "es/index.js",
   "license": "MIT",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "build": "luao-server rollup",
     "dev": "luao-tsc"
@@ -26,6 +25,7 @@
   },
   "devDependencies": {
     "@types/signale": "^1.4.7",
-    "luao-server": "^0.0.4"
+    "luao-server": "^0.0.4",
+    "luao-tsc": "^1.0.2"
   }
 }

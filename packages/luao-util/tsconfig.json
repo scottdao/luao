@@ -3,5 +3,7 @@
   "module": "esnext",
   "compilerOptions": {
     "outDir": "./dist"
-  }
+  },
+  "luaoOutDir":["dist"],
+  "luaoOutFileSuffix":".js"
 }
