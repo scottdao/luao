@@ -23,6 +23,7 @@ const require = createRequire(import.meta.url)
 // }
 
 const handleCmdAction = async (name: string, pkg?: any) => {
+    // console.log(pkg, 'pkg')
     const dir = dirname(url.fileURLToPath(import.meta.url))
     const filePathName = join(dir, `/commands/${name}.js`)
     if (!fs.existsSync(filePathName)) {
