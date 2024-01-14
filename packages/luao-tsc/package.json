@@ -1,6 +1,6 @@
 {
   "name": "luao-tsc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "tsc for luao",
   "license": "ISC",
   "author": "ScottLiu",
@@ -24,5 +24,8 @@
   "dependencies": {
     "rimraf": "^5.0.5",
     "signale": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/signale": "^1.4.7"
   }
 }

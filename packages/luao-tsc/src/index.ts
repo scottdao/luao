@@ -30,8 +30,8 @@ async function reWrite (filePath: string, fileSuffixName: string) {
                 }
             } else {
                 let personList = await fs.readFileSync(pat, {encoding: "utf8"})
-                var regexpNames = /(export|import)?(\s+?\{\s+?)?.+(\s+?\}\s+?)?(from)?(\s+)?(\'|\")(..\/|.\/)(.+)?(\'|\")/gm
-                var match = [...personList.matchAll(regexpNames)];
+                let regexpNames = /(export|import)?(\s+?\{\s+?)?.+(\s+?\}\s+?)?(from)?(\s+)?(\'|\")(..\/|.\/)(.+)?(\'|\")/gm
+                let match: any = [...personList.matchAll(regexpNames)];
                 let count = 0
                 for (let item of match) {
                     if (new RegExp(fileSuffixName, 'g').test(item[1])) {
