@@ -1,9 +1,10 @@
 {
   "name": "luao-util",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "luao for tools",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "es/index.js",
   "license": "MIT",
   "scripts": {
     "build": "luao-server rollup",
