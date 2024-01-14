@@ -1,6 +1,6 @@
 {
   "name": "luao-rollup",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "rollup code package for luao",
   "main": "dist/index.js",
   "type": "module",
@@ -18,7 +18,7 @@
     "build": "luao-server rollup",
     "push": "npm publish",
     "dev": "luao-tsc",
-    "tsc":"rm -rf dist && tsc",
+    "tsc": "rm -rf dist && tsc",
     "test": "node  example/index.js",
     "test:node": "node --experimental-loader ts-node/esm  src/index.ts"
   },
@@ -38,7 +38,7 @@
     "autoprefixer": "^10.4.16",
     "lodash": "^4.17.21",
     "luao-babel-preset": "1.0.6",
-    "luao-util": "^0.0.1",
+    "luao-util": "^0.0.2",
     "postcss": "^8.4.32",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
