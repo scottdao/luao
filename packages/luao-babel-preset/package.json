@@ -5,11 +5,11 @@
   "license": "ISC",
   "author": "ScottLiu",
   "main": "dist/index.js",
-  "module": "es/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "es"
+    "umd"
   ],
   "scripts": {
     "dev": "rm -rf ./dist && pnpm tsc",
@@ -37,6 +37,6 @@
     "regenerator-runtime": "0.14.1"
   },
   "devDependencies": {
-    "luao-server": "^0.0.4"
+    "luao-server": "^0.1.0"
   }
 }
