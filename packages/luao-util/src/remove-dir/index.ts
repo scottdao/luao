@@ -48,7 +48,7 @@ export const removeDir = async ({ files, ignore, deep }: RemoveFileProps) => {
         if (files.some(i => new RegExp(i, 'g').test(dirName as string))) {
             const dirstats = fs.statSync(dirPath)
             if (dirstats.isDirectory()) {
-                promises.push(new Promise(resolve=>resolve(rimraf(dirPath).then(res => { 
+                promises.push(new Promise(resolve=>resolve(rimraf(dirPath).then(() => { 
                     return Promise.resolve('done')
                 }).catch(err => {
                   return Promise.reject(err)
