@@ -1,10 +1,10 @@
 {
   "name": "luao-rollup",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "rollup code package for luao",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "type": "module",
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "keywords": [
     "rollup",
     "tools"
@@ -12,12 +12,13 @@
   "author": "ScottLiu",
   "license": "ISC",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "luao-tsc",
+    "build": "luao-server rollup",
     "push": "npm publish",
-    "dev": "node ./index.js",
+    "dev": "luao-tsc",
+    "tsc":"rm -rf dist && tsc",
     "test": "node  example/index.js",
     "test:node": "node --experimental-loader ts-node/esm  src/index.ts"
   },
@@ -37,6 +38,7 @@
     "autoprefixer": "^10.4.16",
     "lodash": "^4.17.21",
     "luao-babel-preset": "1.0.6",
+    "luao-util": "^0.0.1",
     "postcss": "^8.4.32",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
@@ -64,6 +66,7 @@
     "@types/rimraf": "^4.0.5",
     "@types/signale": "^1.4.7",
     "is-windows": "^1.0.2",
+    "luao-server": "^0.0.4",
     "luao-tsc": "1.0.2",
     "ts-node": "^10.9.2"
   }

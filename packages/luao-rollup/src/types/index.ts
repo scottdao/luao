@@ -25,6 +25,7 @@ export interface IEsm {
     esm?: 'rollup' | IEsm | false;
     umd?: IUmd | false;
     removeHtmlFile?: boolean;
+    entry?: string;
   }
   export interface IOpts {
     cwd: string;

@@ -7,9 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import  terser  from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
-import typescript2 from 'rollup-plugin-typescript2';
 import typescript1 from '@rollup/plugin-typescript';
-import { dts } from "rollup-plugin-dts";
 import alias from '@rollup/plugin-alias';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
@@ -30,6 +28,7 @@ import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import typescript3 from 'typescript';
 import tslib from 'tslib'
+import { Require } from 'luao-util'
 
 interface IGetRollupConfigOpts {
   cwd: string;
@@ -70,10 +69,11 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
 
   let pkg: IPkg = {};
   try {
-    pkg = await import(join(cwd, 'package.json'), {
-      assert: { type: 'json' }
-    });
-    pkg = pkg.default as any
+   pkg =  Require(join(cwd, 'package.json'))
+    // pkg = await import(join(cwd, 'package.json'), {
+    //   assert: { type: 'json' }
+    // });
+    // pkg = pkg.default as any
   } catch (e) {}
 
   const babelOpts = {
@@ -132,8 +132,8 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
     const { minCSS, outputPath } = opts;
     return [
       commonjs({
-        include: /node_modules/,
-        extensions
+        include: /node_modules/
+        // extensions
       }),
       visualizer(),
       strip({
