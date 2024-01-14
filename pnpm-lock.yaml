@@ -211,8 +211,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       luao-server:
-        specifier: ^0.0.2
-        version: 0.0.2(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2)
+        specifier: ^0.1.3
+        version: 0.1.3(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2)
       luao-tsc:
         specifier: 1.0.3
         version: 1.0.3
@@ -242,8 +242,8 @@ importers:
         specifier: ^1.4.7
         version: 1.4.7
       luao-server:
-        specifier: 0.0.3
-        version: 0.0.3(styled-components@6.1.8)
+        specifier: 0.1.3
+        version: 0.1.3(styled-components@6.1.8)
       luao-tsc:
         specifier: ^1.0.2
         version: link:../luao-tsc
@@ -260,6 +260,9 @@ importers:
       '@types/signale':
         specifier: ^1.4.7
         version: 1.4.7
+      luao-server:
+        specifier: 0.1.3
+        version: 0.1.3(styled-components@6.1.8)
 
   packages/luao-util:
     dependencies:
@@ -5716,8 +5719,8 @@ packages:
       - styled-components
       - supports-color
 
-  /luao-rollup@1.1.1(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2):
-    resolution: {integrity: sha512-Fy5aJ1Dg50d0E2RTF+XNBDbl0a4EK6Hcj0zH5vrtHE4AI6+8/rcjySwGigV392L1CbG3LbeCwoguZyXCrp5vJw==}
+  /luao-rollup@1.1.3(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2):
+    resolution: {integrity: sha512-fU0DKn/iFzegS7iV6oBNX0uY4mFjpgphbTU0p3QOacC7RnNtKcTuv7NCWpvSGYrN+4PHrvX2ZwD6s1Yb4zOsvQ==}
     dependencies:
       '@babel/core': 7.23.7
       '@rollup/plugin-alias': 5.1.0(rollup@4.9.5)
@@ -5734,7 +5737,7 @@ packages:
       autoprefixer: 10.4.16(postcss@8.4.33)
       lodash: 4.17.21
       luao-babel-preset: 1.0.6(styled-components@6.1.8)
-      luao-util: 0.0.2
+      luao-util: 0.0.4
       postcss: 8.4.33
       postcss-flexbugs-fixes: 5.0.2(postcss@8.4.33)
       postcss-import: 15.1.0(postcss@8.4.33)
@@ -5799,28 +5802,13 @@ packages:
       - supports-color
       - ts-node
 
-  /luao-server@0.0.2(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2):
-    resolution: {integrity: sha512-l58GkxfAWH7mEMw/jwKdGtj48Zia3z+7dyhB9kVK0fAlNTO6KP/GQCJvXh4c9i7rAjWnECiNW11CKO7EwQFZ6w==}
+  /luao-server@0.1.3(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2):
+    resolution: {integrity: sha512-y1vRbdB2wZ4aLuL9173ZgiyGHbQCYOe28oktgQErzXXe/99chdEkLBzgMrCEYVhkhK+b0jPy2Qmml6+yMLEa3A==}
     hasBin: true
     dependencies:
       commander: 11.1.0
       cross-spawn: 7.0.3
-      luao-rollup: 1.1.1(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2)
-      signale: 1.4.0
-    transitivePeerDependencies:
-      - '@types/babel__core'
-      - styled-components
-      - supports-color
-      - ts-node
-    dev: true
-
-  /luao-server@0.0.3(styled-components@6.1.8):
-    resolution: {integrity: sha512-5ste5X4ff6fz7/zo+pRTRJRznXJeX89KXAnONK3gB2GQiM+OiIsFlqHsiaIZt46RT1WI7sUcws/gUpW22gp5qw==}
-    hasBin: true
-    dependencies:
-      commander: 11.1.0
-      cross-spawn: 7.0.3
-      luao-rollup: 1.1.3(styled-components@6.1.8)
+      luao-rollup: 1.1.3(@types/babel__core@7.20.5)(styled-components@6.1.8)(ts-node@10.9.2)
       signale: 1.4.0
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -5847,13 +5835,6 @@ packages:
   /luao-tsc@1.0.3:
     resolution: {integrity: sha512-LnHsSWegpQrsNoa7qeoRybbFAIVeLSajWtYkaZqTgjmon0IBFYgSYG46UlESgsOTFRjOy2CjxQiJOwRQCRW1ew==}
     hasBin: true
-    dependencies:
-      rimraf: 5.0.5
-      signale: 1.4.0
-    dev: true
-
-  /luao-util@0.0.2:
-    resolution: {integrity: sha512-teR0CUjXMs8yZbU5gMCWRXnVzKPOMmQ8vNxKYdDJfwhkJVDG0w6eiC1vHAs2wTE49N5zBvP8pm78w9Yf+ctxrg==}
     dependencies:
       rimraf: 5.0.5
       signale: 1.4.0

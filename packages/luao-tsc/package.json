@@ -14,8 +14,8 @@
     "bin"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && pnpm tsc",
-    "push": "npm publish"
+    "dev": "luao-tsc",
+    "build": "luao-server rollup"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "signale": "^1.4.0"
   },
   "devDependencies": {
-    "@types/signale": "^1.4.7"
+    "@types/signale": "^1.4.7",
+    "luao-server": "0.1.3"
   }
 }
