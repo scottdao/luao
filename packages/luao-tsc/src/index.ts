@@ -106,7 +106,7 @@ async function multipleRewrite(entryFilePath: string[], suffixName: string) {
     const rewriteFn = () => {
         entryFilePath.map(item=>reWrite(item, suffixName))
     }
-    runSpawnCmd('tsc').then(() => { 
+    runSpawnCmd('tsc').finally(() => { 
         rewriteFn()
     })
 }
