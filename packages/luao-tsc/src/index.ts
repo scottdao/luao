@@ -24,7 +24,7 @@ async function reWrite (filePath: string, fileSuffixName: string) {
                 if (temp) {
                     for (let i of temp) {
                         if (!hasDst(i)) {
-                            stack.push(path.join(top, i))
+                            stack.push(path.join(top as string, i))
                         }
                     }
                 }
