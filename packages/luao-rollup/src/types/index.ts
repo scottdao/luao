@@ -4,6 +4,7 @@ export interface IEsm {
     mjs?: boolean;
     minify?: boolean;
     importLibToEs?: boolean;
+    dir?: string;
   }
   
   export interface IUmd {
@@ -11,6 +12,7 @@ export interface IEsm {
     minFile?: boolean;
     file?: string;
     sourcemap?: boolean;
+    dir?: string;
   }
   
   export interface IBundleOptions {

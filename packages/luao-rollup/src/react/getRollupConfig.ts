@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { basename, extname, join, resolve } from 'path';
+// @ts-ignore
 import  setBabelPresetFn  from 'luao-babel-preset';
 const setBabelPreset = setBabelPresetFn.setBabelPreset;
 import { ModuleFormat, RollupOptions } from 'rollup';
@@ -28,7 +29,8 @@ import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import typescript3 from 'typescript';
 import tslib from 'tslib'
-import { Require } from 'luao-util'
+import util from 'luao-util';
+const { Require } = util;
 
 interface IGetRollupConfigOpts {
   cwd: string;
@@ -36,6 +38,7 @@ interface IGetRollupConfigOpts {
   type: ModuleFormat;
   importLibToEs?: boolean;
   bundleOpts: IBundleOptions;
+  outDir: string;
 }
 
 interface IPkg {
@@ -60,7 +63,9 @@ const onwarn: RollupOptions['onwarn'] = (warning) => {
 };
 
 export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions[]> {
-  const { cwd, type, entry, bundleOpts, importLibToEs } = opts;
+  const { cwd, type, entry, bundleOpts,
+    // importLibToEs,
+    outDir } = opts;
   const { output, extraExternals = [] } = bundleOpts;
 
   const entryExt = extname(entry);
@@ -96,10 +101,11 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
     extensions,
     exclude: /\/node_modules\//,
   };
-  if (importLibToEs && type === 'esm') {
-    const values = await import('../utils/importLibToEs')
-    babelOpts.plugins.push(values);
-  }
+  // if (importLibToEs && type === 'esm') {
+  //   const values = await import('../utils/importLibToEs')
+  //   console.log(values, 'value')
+  //   babelOpts.plugins.push(values);
+  // }
 
   const input = join(cwd, entry);
   const format = type;
@@ -196,7 +202,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             // compilerOptions: { module: 'CommonJS' } ,
             tsconfig: join(cwd, 'tsconfig.json'),
             cacheDir: `${tempDir}/.rollup.cache`,
-            outDir:join(cwd, type === 'esm'?`es`:'dist'),
+            outDir:join(cwd, outDir),
             transformers: [{
                 before:[createTransformer()]
             }] as any
@@ -219,7 +225,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
           input,
           output: {
             format,
-            dir: join(cwd, `es`),
+            dir: join(cwd, outDir),
             entryFileNames:'[name].js',
             chunkFileNames: '[name].js',
             compact: true,
@@ -230,7 +236,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             // file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
-          plugins: [...getPlugins({ outputPath: 'es' })],
+          plugins: [...getPlugins({ outputPath: outDir }), terser(terserOpts)],
           external,
         },
       ];
@@ -243,11 +249,11 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
             format,
             name: pkg.name && camelCase(basename(pkg.name)),
             ...(output || {}),
-            file: join(cwd, `dist/${(output && output.file) || 'index.js'}`),
+            file: join(cwd, `${outDir}/${(output && output.file) || 'index.min.js'}`),
           },
           onwarn,
           plugins: [
-            ...getPlugins({ minCSS: true, outputPath: 'dist' }),
+            ...getPlugins({ minCSS: true, outputPath: outDir }),
             replace({
               'process.env.NODE_ENV': JSON.stringify('production'),
             }),

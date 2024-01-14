@@ -5,8 +5,10 @@ import rollup from './rollup';
 import getUserConfig from '../utils/getUserConfig';
 import { getExistFile } from '../utils/index';
 import { IBundleOptions, IEsm } from '../types';
-import { removeFile, removeDir } from 'luao-util'
-
+import util from 'luao-util';
+import _ from 'lodash';
+const { removeFile, removeDir } = util;
+const { uniq } = _
 /**
  * 默认支持esm和umd两种格式
  */
@@ -20,14 +22,14 @@ const defaultBundleOpts: IBundleOptions = {
     sourcemap: false,
   },
 };
-const CONSTDIR = ['dist', 'es']
-const removeHtmlFile = (option: IBundleOptions[]) => {
+let CONSTDIR = ['dist', 'umd']
+const removeHtmlFile = (option: IBundleOptions[], CONSTDIR: string[]) => {
     option.forEach(element => {
-        if (element.removeHtmlFile === true) { 
-            // 清除html文件
+        if (element.removeHtmlFile === true) {
+          // 清除html文件
             removeFile({
               fileSuffix: '.html',
-              ignore:['node_modules', ...CONSTDIR]
+              ignore:['node_modules',...CONSTDIR]
             })
         }
     });
@@ -58,10 +60,19 @@ export async function buildReact(props?: RollupBuildProps) {
   const cwd = process.cwd();
   const global = signale.scope('luao component bundler');
   try {
+  
+    const bundleOpts = await getBundleOpts({ entry: props?.entry });
+    bundleOpts.forEach(item => { 
+      if (item.esm !== 'rollup' && item.esm !== false && item?.esm?.dir) { 
+          CONSTDIR.push(item?.esm?.dir)
+        }
+        if ( item.umd !== false && item?.umd?.dir) { 
+          CONSTDIR.push(item?.umd?.dir)
+        }
+    })
+    CONSTDIR = uniq(CONSTDIR)
     await removeDir({ files:CONSTDIR })
     global.pending('开始打包');
-
-    const bundleOpts = await getBundleOpts({ entry: props?.entry });
 
     const promises = bundleOpts.reduce<Array<Promise<void>>>(
       (pre, bundleOpt) => {
@@ -77,9 +88,10 @@ export async function buildReact(props?: RollupBuildProps) {
                   type: 'umd',
                   entry: bundleOpt.entry!,
                   bundleOpts: bundleOpt,
+                  outDir:( bundleOpt.umd !== false && bundleOpt?.umd?.dir)?bundleOpt?.umd?.dir:'umd',
                 }).then(() => {
                   umd.success('UMD格式打包完成');
-                  removeHtmlFile(bundleOpts)
+                  removeHtmlFile(bundleOpts, CONSTDIR)
                 }),
               );
             }),
@@ -92,9 +104,7 @@ export async function buildReact(props?: RollupBuildProps) {
             new Promise((resolve) => {
               const esm = bundleOpt.esm as IEsm;
               const importLibToEs = esm && esm.importLibToEs;
-
               const esmSignale = global.scope('luao component ->ESM<-');
-
               esmSignale.pending('打包ESM格式...');
               resolve(
                 rollup({
@@ -103,9 +113,10 @@ export async function buildReact(props?: RollupBuildProps) {
                   entry: bundleOpt.entry!,
                   bundleOpts: bundleOpt,
                   importLibToEs,
+                  outDir:(bundleOpt.esm !== 'rollup' &&bundleOpt.esm !== false && bundleOpt?.esm?.dir)?bundleOpt?.esm?.dir:'dist',
                 }).then(() => {
                   esmSignale.success('ESM格式打包完成');
-                  removeHtmlFile(bundleOpts)
+                  removeHtmlFile(bundleOpts, CONSTDIR)
                 }),
               );
             }),
