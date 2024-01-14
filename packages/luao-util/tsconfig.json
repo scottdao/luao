@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "module": "esnext",
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "module": "ESNext"
   },
   "luaoOutDir":["dist"],
   "luaoOutFileSuffix":".js"
