@@ -2,6 +2,7 @@
 // import { rimraf } from 'rimraf';
 import signale from 'signale';
 import rollup from './rollup';
+import watchRollup from './watch';
 import getUserConfig from '../utils/getUserConfig';
 import { getExistFile } from '../utils/index';
 import { IBundleOptions, IEsm } from '../types';
@@ -54,13 +55,12 @@ async function getBundleOpts({ entry }: { entry?: string }):Promise<IBundleOptio
 
 interface RollupBuildProps {
   entry?: string;
+  w?: true | undefined;
 }
 
 export async function buildReact(props?: RollupBuildProps) {
   const cwd = process.cwd();
-  const global = signale.scope('luao component bundler');
   try {
-  
     const bundleOpts = await getBundleOpts({ entry: props?.entry });
     bundleOpts.forEach(item => { 
       if (item.esm !== 'rollup' && item.esm !== false && item?.esm?.dir) { 
@@ -71,73 +71,77 @@ export async function buildReact(props?: RollupBuildProps) {
         }
     })
     CONSTDIR = uniq(CONSTDIR)
-    await removeDir({ files:CONSTDIR })
-    global.pending('开始打包');
+    if (props?.w) {
+      await removeDir({ files: CONSTDIR })
+      watchRollup(bundleOpts, { cwd, type:'umd'})
+    } else {
+      const global = signale.scope('luao component bundler');
+      await removeDir({ files: CONSTDIR })
+      global.pending('building start...');
+      const promises = bundleOpts.reduce<Array<Promise<void>>>(
+        (pre, bundleOpt) => {
+          // Build umd
+          if (bundleOpt.umd) {
+            pre.push(
+              new Promise((resolve) => {
+                const umd = global.scope('luao component ->UMD<-');
+                umd.pending('building UMD format...');
+                resolve(
+                  rollup({
+                    cwd,
+                    type: 'umd',
+                    entry: bundleOpt.entry!,
+                    bundleOpts: bundleOpt,
+                    outDir:( bundleOpt.umd !== false && bundleOpt?.umd?.dir)?bundleOpt?.umd?.dir:'dist',
+                  }).then(() => {
+                    umd.success('UMD format building complete!');
+                    removeHtmlFile(bundleOpts, CONSTDIR)
+                  }),
+                );
+              }),
+            );
+          }
 
-    const promises = bundleOpts.reduce<Array<Promise<void>>>(
-      (pre, bundleOpt) => {
-        // Build umd
-        if (bundleOpt.umd) {
-          pre.push(
-            new Promise((resolve) => {
-              const umd = global.scope('luao component ->UMD<-');
-              umd.pending('打包UMD格式...');
-              resolve(
-                rollup({
-                  cwd,
-                  type: 'umd',
-                  entry: bundleOpt.entry!,
-                  bundleOpts: bundleOpt,
-                  outDir:( bundleOpt.umd !== false && bundleOpt?.umd?.dir)?bundleOpt?.umd?.dir:'dist',
-                }).then(() => {
-                  umd.success('UMD格式打包完成');
-                  removeHtmlFile(bundleOpts, CONSTDIR)
-                }),
-              );
-            }),
-          );
+          // Build esm
+          if (bundleOpt.esm) {
+            pre.push(
+              new Promise((resolve) => {
+                const esm = bundleOpt.esm as IEsm;
+                const importLibToEs = esm && esm.importLibToEs;
+                const esmSignale = global.scope('luao component ->ESM<-');
+                esmSignale.pending('building ESM format...');
+                resolve(
+                  rollup({
+                    cwd,
+                    type: 'esm',
+                    entry: bundleOpt.entry!,
+                    bundleOpts: bundleOpt,
+                    importLibToEs,
+                    outDir:(bundleOpt.esm !== 'rollup' &&bundleOpt.esm !== false && bundleOpt?.esm?.dir)?bundleOpt?.esm?.dir:'es',
+                  }).then(() => {
+                    esmSignale.success('ESM format building complete');
+                    removeHtmlFile(bundleOpts, CONSTDIR)
+                  }),
+                );
+              }),
+            );
+          }
+
+          return pre;
+        },
+        [],
+      );
+
+      while (promises.length) {
+        const promise = promises.shift();
+        if (promise) {
+          await promise;
         }
-
-        // Build esm
-        if (bundleOpt.esm) {
-          pre.push(
-            new Promise((resolve) => {
-              const esm = bundleOpt.esm as IEsm;
-              const importLibToEs = esm && esm.importLibToEs;
-              const esmSignale = global.scope('luao component ->ESM<-');
-              esmSignale.pending('打包ESM格式...');
-              resolve(
-                rollup({
-                  cwd,
-                  type: 'esm',
-                  entry: bundleOpt.entry!,
-                  bundleOpts: bundleOpt,
-                  importLibToEs,
-                  outDir:(bundleOpt.esm !== 'rollup' &&bundleOpt.esm !== false && bundleOpt?.esm?.dir)?bundleOpt?.esm?.dir:'es',
-                }).then(() => {
-                  esmSignale.success('ESM格式打包完成');
-                  removeHtmlFile(bundleOpts, CONSTDIR)
-                }),
-              );
-            }),
-          );
-        }
-
-        return pre;
-      },
-      [],
-    );
-
-    while (promises.length) {
-      const promise = promises.shift();
-      if (promise) {
-        await promise;
       }
+      global.success('building complete');
     }
-
-    global.success('打包完成');
   } catch (e) {
-    global.error(e);
+    signale.error(e);
     process.exit(1);
   }
 }
