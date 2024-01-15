@@ -1,11 +1,11 @@
 {
   "name": "luao-babel-preset",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "babel preset for luao",
   "license": "ISC",
   "author": "ScottLiu",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "es/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
