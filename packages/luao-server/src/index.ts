@@ -22,7 +22,7 @@ const require = createRequire(import.meta.url)
 //   process.exit(1);
 // }
 
-const handleCmdAction = async (name: string, pkg?: any) => {
+const handleCmdAction = async (name: string) => {
     // console.log(pkg, 'pkg')
     const dir = dirname(url.fileURLToPath(import.meta.url))
     const filePathName = join(dir, `/commands/${name}.js`)
@@ -46,12 +46,12 @@ const program = new Command();
 const handleFileOptions = async () => {
     const filePathName = join(`../package.json`)
     const pkg = require(filePathName)
-    // console.log(pkg)
     program
-    .version(pkg.version, '-v, --version')
-    .argument('<name> [env]', 'running server...')
+        .version(pkg.version, '-v, --version')
+        .option('-w,--w','watch code running...')
+        .argument('<name> [env]', 'running server...')
         .action((name) => {
-            handleCmdAction(name, pkg)
+            handleCmdAction(name)
         }
     ).parse(process.argv)
     return Promise.resolve('done')
