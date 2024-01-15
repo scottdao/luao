@@ -71,7 +71,6 @@ const baseOptionsMap: Map<string,(opts:baseMapType)=>any> = new Map([
                     regenerator: true,
                     absoluteRuntime: dirname(require.resolve('../package.json')),
                         version: '^7.23.7',
-                        "corejs":3,
                     ...options.pluginTransformRuntime,
                     },
                 ],
