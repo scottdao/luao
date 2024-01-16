@@ -1,5 +1,5 @@
 module.exports =  {
-  removeHtmlFile: true,
+    removeHtmlFile: true,
     esm: {
       type: 'rollup',
       minify: false,
@@ -9,7 +9,7 @@ module.exports =  {
     umd: false,
     watch: {
       exclude: 'node_modules/**',
-        include: 'src/**',
-        devServer: () => { }
+      include: 'src/**',
+      devServer: () => { }
     }
  }

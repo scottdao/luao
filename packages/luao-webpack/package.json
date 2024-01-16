@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "luao for webpack",
   "main": "dist/index.js",
-  "module": "es/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
@@ -11,8 +10,7 @@
     "dev": "luao-server rollup -w"
   },
   "files": [
-    "dist",
-    "es"
+    "dist"
   ],
   "author": {
     "name": "liudaoyun",
@@ -20,6 +18,18 @@
     "url": "https://github.com/scottdao/luao.git"
   },
   "devDependencies": {
+    "@types/rimraf": "^4.0.5",
     "luao-server": "0.1.4"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.23.8",
+    "luao-babel-preset": "^1.0.8",
+    "luao-util": "^0.0.4",
+    "rimraf": "^5.0.5",
+    "webpack": "^5.89.0",
+    "webpack-5-chain": "^8.0.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-sources": "^3.2.3"
   }
 }
