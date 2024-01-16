@@ -1,5 +1,5 @@
 import fs from 'fs';
-export { extendUserConfig } from './extend-user-config'
+export { getUserConfig } from './get-user-config'
 export function getBrowsersList({ targets }: { targets: Record<string, any> }) {
   return (
     targets.browsers ||
