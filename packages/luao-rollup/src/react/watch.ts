@@ -22,6 +22,7 @@ const watchBuildConfig = async (entry: string, bundleOpts: IBundleOptions & Opti
         type,
         entry:entry,
         bundleOpts: bundleOpts,
+        env:'development',
         outDir: (bundleOpts.umd !== false && bundleOpts?.umd?.dir)?bundleOpts?.umd?.dir:'dist'
     })
     return rollupConfigs
@@ -50,6 +51,7 @@ const watchRollup = async (opts: IBundleOptions[], options: OptionProp) => {
         global.pending('watch start...');
         const watchOpt = _.flattenDeep(options)
         const watcher = watch(watchOpt);
+        // console.log(watchOpt, 'watchOpt');
         watcher.on('event', event => {
             switch (event.code) {
                 case 'START':

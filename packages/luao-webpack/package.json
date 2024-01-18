@@ -19,10 +19,12 @@
   },
   "devDependencies": {
     "@types/rimraf": "^4.0.5",
-    "luao-server": "0.1.4"
+    "luao-server": "workspace:*"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.8",
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21",
     "luao-babel-preset": "^1.0.8",
     "luao-util": "^0.0.4",
     "rimraf": "^5.0.5",

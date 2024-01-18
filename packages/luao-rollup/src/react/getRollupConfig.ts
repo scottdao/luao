@@ -39,6 +39,7 @@ interface IGetRollupConfigOpts {
   importLibToEs?: boolean;
   bundleOpts: IBundleOptions;
   outDir: string;
+  env?:string
 }
 
 interface IPkg {
@@ -63,7 +64,7 @@ const onwarn: RollupOptions['onwarn'] = (warning) => {
 };
 
 export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions[]> {
-  const { cwd, type, entry, bundleOpts,
+  const { cwd, type, entry, bundleOpts,env,
     // importLibToEs,
     outDir } = opts;
   const { output, extraExternals = [] } = bundleOpts;
@@ -255,7 +256,7 @@ export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions
           plugins: [
             ...getPlugins({ minCSS: true, outputPath: outDir }),
             replace({
-              'process.env.NODE_ENV': JSON.stringify('production'),
+              'process.env.NODE_ENV': JSON.stringify(env?env:'production'),
             }),
             terser(terserOpts),
           ],

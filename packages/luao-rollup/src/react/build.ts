@@ -72,6 +72,7 @@ export async function buildReact(props?: RollupBuildProps) {
     })
     CONSTDIR = uniq(CONSTDIR)
     if (props?.w) {
+      await removeHtmlFile(bundleOpts, CONSTDIR)
       await removeDir({ files: CONSTDIR })
       watchRollup(bundleOpts, { cwd, type:'umd'})
     } else {
