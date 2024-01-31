@@ -18,6 +18,7 @@
     "url": "https://github.com/scottdao/luao.git"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/rimraf": "^4.0.5",
     "luao-server": "workspace:*"
   },

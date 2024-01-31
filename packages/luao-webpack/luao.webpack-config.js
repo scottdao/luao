@@ -6,12 +6,12 @@
               dayjs: 'dayjs',
               'styled-components': 'window["styled-components"]',
             },
-            extensions:[],
-            alias:{},
-            define:{},
-            entry:[],
-            plugins:[],
-            rules:[],
+          //  extensions:[],
+          //  alias:{},
+          //  define:{},
+          //  entry:[],
+          //  plugins:[],
+          //  rules:[],
             publicPath:'/',      // 公共目录
             assetsDir:'static', // 静态资源目录
             outputDir:'dist',   // 静态资源根目录
