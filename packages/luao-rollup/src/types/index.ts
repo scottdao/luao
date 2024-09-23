@@ -4,6 +4,7 @@ export interface IEsm {
     mjs?: boolean;
     minify?: boolean;
     importLibToEs?: boolean;
+    dir?: string;
   }
   
   export interface IUmd {
@@ -11,10 +12,10 @@ export interface IEsm {
     minFile?: boolean;
     file?: string;
     sourcemap?: boolean;
+    dir?: string;
   }
   
   export interface IBundleOptions {
-    entry?: string | string[];
     output?: {
       name?: string;
       /**
@@ -25,6 +26,8 @@ export interface IEsm {
     extraExternals?: string[];
     esm?: 'rollup' | IEsm | false;
     umd?: IUmd | false;
+    removeHtmlFile?: boolean;
+    entry?: string;
   }
   export interface IOpts {
     cwd: string;

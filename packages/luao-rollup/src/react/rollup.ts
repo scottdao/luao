@@ -8,15 +8,17 @@ interface IRollupOpts {
   type: ModuleFormat;
   bundleOpts: IBundleOptions;
   importLibToEs?: boolean;
+  outDir: string;
 }
 
 async function build(entry: string, opts: IRollupOpts) {
-  const { cwd, type, bundleOpts } = opts;
-  const rollupConfigs = getRollupConfig({
+  const { cwd, type, bundleOpts, outDir } = opts;
+  const rollupConfigs = await getRollupConfig({
     cwd,
     type,
     entry,
     bundleOpts,
+    outDir
   });
   for (const rollupConfig of rollupConfigs) {
     const { output, ...input } = rollupConfig;

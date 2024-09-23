@@ -1,16 +1,38 @@
 {
-  "name": "@luao/webpack",
+  "name": "luao-webpack",
   "version": "1.0.0",
-  "description": "脚手架",
-  "main": "index.js",
+  "description": "luao for webpack",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
-  "private": true,
   "scripts": {
-    "build":"rm -rf ./dist && yarn tsc"
+    "build": "luao-server rollup",
+    "dev": "luao-server rollup -w"
   },
+  "files": [
+    "dist"
+  ],
   "author": {
     "name": "liudaoyun",
-    "email": "13466484073@139.com",
+    "email": "scottldy0316@gmail.com",
     "url": "https://github.com/scottdao/luao.git"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/rimraf": "^4.0.5",
+    "luao-server": "workspace:*"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.23.8",
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21",
+    "luao-babel-preset": "^1.0.8",
+    "luao-util": "^0.0.4",
+    "rimraf": "^5.0.5",
+    "webpack": "^5.89.0",
+    "webpack-5-chain": "^8.0.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-sources": "^3.2.3"
   }
 }

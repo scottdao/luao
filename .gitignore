@@ -1,8 +1,13 @@
 .DS_Store
 /node_modules
 /packages/**/dist
+/packages/**/es
 /packages/**/lib
+/packages/**/umd
 /packages/*/node_modules
+/example/packages/*/node_modules
+/example/packages/*/es
+/example/packages/*/dist
 /packages/*/src/.umi
 /packages/*/src/.umi-production
 /packages/*/src/.umi-test

@@ -1,7 +1,7 @@
 {
-  "name": "@luao/cli",
-  "version": "1.0.0",
-  "description": "脚手架",
+  "name": "luao-cli",
+  "version": "0.0.1",
+  "description": "cli for luao-cli",
   "type": "module",
   "main": "./dist/index.js",
   "license": "MIT",

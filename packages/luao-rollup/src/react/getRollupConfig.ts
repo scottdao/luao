@@ -1,12 +1,14 @@
 import fs from 'fs';
 import { basename, extname, join, resolve } from 'path';
-import { setBabelPreset } from 'luao-babel-preset';
+// @ts-ignore
+import  setBabelPresetFn  from 'luao-babel-preset';
+const setBabelPreset = setBabelPresetFn.setBabelPreset;
 import { ModuleFormat, RollupOptions } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { terser }  from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
-import typescript2 from 'rollup-plugin-typescript2';
+import typescript1 from '@rollup/plugin-typescript';
 import alias from '@rollup/plugin-alias';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
@@ -16,11 +18,19 @@ import url from 'postcss-url';
 import strip from '@rollup/plugin-strip';
 import image from '@rollup/plugin-image';
 import svgr from '@svgr/rollup';
-import { camelCase } from 'lodash';
+import _ from 'lodash';
+const { camelCase } = _;
 import tempDir from 'temp-dir';
 import autoprefixer from 'autoprefixer';
 import { createTransformer } from 'typescript-plugin-styled-components';
 import { IBundleOptions } from '../types';
+import postCssImport from 'postcss-import';
+import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import typescript3 from 'typescript';
+import tslib from 'tslib'
+import util from 'luao-util';
+const { Require } = util;
 
 interface IGetRollupConfigOpts {
   cwd: string;
@@ -28,9 +38,16 @@ interface IGetRollupConfigOpts {
   type: ModuleFormat;
   importLibToEs?: boolean;
   bundleOpts: IBundleOptions;
+  outDir: string;
+  env?:string
 }
 
 interface IPkg {
+  default?: {
+    dependencies?: Record<string, any>;
+    peerDependencies?: Record<string, any>;
+    name?: string;
+  };
   dependencies?: Record<string, any>;
   peerDependencies?: Record<string, any>;
   name?: string;
@@ -46,17 +63,23 @@ const onwarn: RollupOptions['onwarn'] = (warning) => {
   }
 };
 
-export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
-  const { cwd, type, entry, bundleOpts, importLibToEs } = opts;
+export default async function (opts: IGetRollupConfigOpts):Promise<RollupOptions[]> {
+  const { cwd, type, entry, bundleOpts,env,
+    // importLibToEs,
+    outDir } = opts;
   const { output, extraExternals = [] } = bundleOpts;
 
   const entryExt = extname(entry);
   const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
-  const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+  const extensions = [...DEFAULT_EXTENSIONS,'.js', '.jsx', '.ts', '.tsx'];
 
   let pkg: IPkg = {};
   try {
-    pkg = require(join(cwd, 'package.json'));
+   pkg =  Require(join(cwd, 'package.json'))
+    // pkg = await import(join(cwd, 'package.json'), {
+    //   assert: { type: 'json' }
+    // });
+    // pkg = pkg.default as any
   } catch (e) {}
 
   const babelOpts = {
@@ -64,7 +87,10 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
       presetEnv: {},
       presetReact: {},
       presetTypeScript: {},
-      pluginTransformRuntime: type === 'esm' ? {} : undefined,
+      pluginTransformRuntime: type === 'esm' ? {
+        absoluteRuntime: false,
+        "corejs":3
+      } : undefined,
       type,
       projectType:'React'
     }),
@@ -76,9 +102,11 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
     extensions,
     exclude: /\/node_modules\//,
   };
-  if (importLibToEs && type === 'esm') {
-    babelOpts.plugins.push(require.resolve('../dist/utils/importLibToEs'));
-  }
+  // if (importLibToEs && type === 'esm') {
+  //   const values = await import('../utils/importLibToEs')
+  //   console.log(values, 'value')
+  //   babelOpts.plugins.push(values);
+  // }
 
   const input = join(cwd, entry);
   const format = type;
@@ -111,7 +139,8 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
     const { minCSS, outputPath } = opts;
     return [
       commonjs({
-        include: /node_modules/,
+        include: /node_modules/
+        // extensions
       }),
       visualizer(),
       strip({
@@ -128,7 +157,8 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
         use: ['sass', 'less'],
         plugins: [
           // 先处理@import
-          require('postcss-import')(),
+          // require('postcss-import')(),
+          postCssImport(),
           // 将小于10kb的资源转换成base64，大于10kb输出到static文件夹下
           url({
             url: 'inline',
@@ -153,7 +183,7 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
             },
             assetsPath: `${outputPath}/static/`,
           }),
-          require('postcss-flexbugs-fixes'),
+          postcssFlexbugsFixes,
           autoprefixer({
             remove: false,
             flexbox: 'no-2009',
@@ -166,30 +196,18 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
       }),
       ...(isTypeScript
         ? [
-            typescript2({
-              cwd,
-              clean: true,
-              cacheRoot: `${tempDir}/.rollup_plugin_typescript2_cache`,
-              tsconfig: join(cwd, 'tsconfig.json'),
-              tsconfigDefaults: {
-                compilerOptions: {
-                  // Generate declaration files by default
-                  declaration: true,
-                },
-              },
-              tsconfigOverride: {
-                compilerOptions: {
-                  // Support dynamic import
-                  target: 'esnext',
-                },
-              },
-              transformers: [
-                () => ({
-                  before: [createTransformer()],
-                }),
-              ],
-              check: true,
-            }),
+          typescript1({
+            // include:['.ts','.tsx', '.vue'],
+            typescript: typescript3,
+            tslib: tslib as any,
+            // compilerOptions: { module: 'CommonJS' } ,
+            tsconfig: join(cwd, 'tsconfig.json'),
+            cacheDir: `${tempDir}/.rollup.cache`,
+            outDir:join(cwd, outDir),
+            transformers: [{
+                before:[createTransformer()]
+            }] as any
+        })
           ]
         : []),
       babel(babelOpts),
@@ -208,11 +226,18 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
           input,
           output: {
             format,
+            dir: join(cwd, outDir),
+            entryFileNames:'[name].js',
+            chunkFileNames: '[name].js',
+            compact: true,
+            minifyInternalExports: true,
+            preserveModules: true,
+            preserveModulesRoot: 'src',
             ...(output || {}),
-            file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
+            // file: join(cwd, `es/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
-          plugins: [...getPlugins({ outputPath: 'es' })],
+          plugins: [...getPlugins({ outputPath: outDir })],
           external,
         },
       ];
@@ -225,20 +250,19 @@ export default function (opts: IGetRollupConfigOpts): RollupOptions[] {
             format,
             name: pkg.name && camelCase(basename(pkg.name)),
             ...(output || {}),
-            file: join(cwd, `dist/${(output && output.file) || 'index.js'}`),
+            file: join(cwd, `${outDir}/${(output && output.file) || 'index.js'}`),
           },
           onwarn,
           plugins: [
-            ...getPlugins({ minCSS: true, outputPath: 'dist' }),
+            ...getPlugins({ minCSS: true, outputPath: outDir }),
             replace({
-              'process.env.NODE_ENV': JSON.stringify('production'),
+              'process.env.NODE_ENV': JSON.stringify(env?env:'production'),
             }),
             terser(terserOpts),
           ],
           external,
         },
       ];
-
     default:
       throw new Error(`Unsupported type ${type}`);
   }

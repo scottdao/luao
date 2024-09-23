@@ -1,5 +1,5 @@
 import { buildReact } from './react/build';
 
-export { 
+export {
     buildReact
 }
