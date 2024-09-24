@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-"use strict";
-require('../dist/index');
+'use strict'
+require('../dist/index')

@@ -1,6 +1,6 @@
 {
   "name": "luao-tsc",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "tsc for luao",
   "license": "ISC",
   "author": "ScottLiu",
@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "dev": "luao-tsc",
+    "start": "ts-node ./src/index.ts",
     "build": "luao-server rollup"
   },
   "repository": {
@@ -23,7 +24,8 @@
   },
   "dependencies": {
     "rimraf": "^5.0.5",
-    "signale": "^1.4.0"
+    "signale": "^1.4.0",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/signale": "^1.4.7",
