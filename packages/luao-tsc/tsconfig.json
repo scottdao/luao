@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
-  "luaoOutDir":["dist"]
+  "luaoOutDir": ["dist"]
 }

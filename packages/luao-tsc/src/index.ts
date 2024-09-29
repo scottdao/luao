@@ -68,7 +68,7 @@ async function reWrite(filePath: string, fileSuffixName: string) {
 // 执行tsc 命令
 async function runSpawnCmd(value: string) {
   return new Promise((resolve, reject) => {
-    const tsc: any = childProcess.spawn(value)
+    const tsc: any = childProcess.exec(value)
     tsc.stdout.on('data', (data: any) => {
       resolve(data)
       console.log(`stdout: ${data}`)
@@ -77,7 +77,7 @@ async function runSpawnCmd(value: string) {
       console.error(`stderr: ${data}`)
     })
     tsc.on('close', (code: string) => {
-      reject('close')
+      resolve('close')
       console.log(`child process exited with code ${code}`)
     })
     tsc.on('error', (err: any) => {
@@ -96,7 +96,6 @@ function clearFileCmd(entryFilePath: string[]) {
         const filePath = path.join(cwd, item)
         rimraf(filePath)
           .then(() => {
-            console.log('done')
             resolve('done')
           })
           .catch((err: string) => {
