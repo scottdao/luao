@@ -1,43 +1,44 @@
 export interface IEsm {
-    type: 'rollup';
-    file?: string;
-    mjs?: boolean;
-    minify?: boolean;
-    importLibToEs?: boolean;
-    dir?: string;
-  }
-  
-  export interface IUmd {
-    name?: string;
-    minFile?: boolean;
-    file?: string;
-    sourcemap?: boolean;
-    dir?: string;
-  }
-  
-  export interface IBundleOptions {
-    output?: {
-      name?: string;
-      /**
-       * 输出的文件名称
-       */
-      file: string;
-    };
-    extraExternals?: string[];
-    esm?: 'rollup' | IEsm | false;
-    umd?: IUmd | false;
-    removeHtmlFile?: boolean;
-    entry?: string;
-  }
-  export interface IOpts {
-    cwd: string;
-    watch?: boolean;
+  type: 'rollup'
+  file?: string
+  mjs?: boolean
+  minify?: boolean
+  importLibToEs?: boolean
+  dir?: string
+}
+
+export interface IUmd {
+  name?: string
+  minFile?: boolean
+  file?: string
+  sourcemap?: boolean
+  dir?: string
+}
+
+export interface IBundleOptions {
+  output?: {
+    name?: string
     /**
-     * 构建时清空outputDir
-     * @default true
-     * */
-    clean?: boolean;
-    buildArgs?: IBundleOptions;
-    rootConfig?: IBundleOptions;
-    rootPath?: string;
+     * 输出的文件名称
+     */
+    file: string
   }
+  extraExternals?: string[]
+  esm?: 'rollup' | IEsm | false
+  umd?: IUmd | false
+  removeHtmlFile?: boolean
+  entry?: string
+  codeBabelType?: 'react' | 'vue' | 'node'
+}
+export interface IOpts {
+  cwd: string
+  watch?: boolean
+  /**
+   * 构建时清空outputDir
+   * @default true
+   * */
+  clean?: boolean
+  buildArgs?: IBundleOptions
+  rootConfig?: IBundleOptions
+  rootPath?: string
+}

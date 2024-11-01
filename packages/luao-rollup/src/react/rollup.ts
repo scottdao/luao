@@ -1,40 +1,42 @@
-import { rollup, ModuleFormat, OutputOptions } from 'rollup';
-import getRollupConfig from './getRollupConfig';
-import { IBundleOptions } from '../types';
+import { rollup, ModuleFormat, OutputOptions } from 'rollup'
+import getRollupConfig from './getRollupConfig'
+import { IBundleOptions } from '../types'
 
 interface IRollupOpts {
-  cwd: string;
-  entry: string | string[];
-  type: ModuleFormat;
-  bundleOpts: IBundleOptions;
-  importLibToEs?: boolean;
-  outDir: string;
+  cwd: string
+  entry: string | string[]
+  type: ModuleFormat
+  bundleOpts: IBundleOptions
+  importLibToEs?: boolean
+  outDir: string
+  codeBabelType: 'react' | 'vue' | 'node'
 }
 
 async function build(entry: string, opts: IRollupOpts) {
-  const { cwd, type, bundleOpts, outDir } = opts;
+  const { cwd, type, bundleOpts, outDir, codeBabelType } = opts
   const rollupConfigs = await getRollupConfig({
     cwd,
     type,
     entry,
     bundleOpts,
-    outDir
-  });
+    outDir,
+    codeBabelType,
+  })
 
   for (const rollupConfig of rollupConfigs) {
-    const { output, ...input } = rollupConfig;
-    const bundle = await rollup(input);
-    await bundle.write(output as OutputOptions);
+    const { output, ...input } = rollupConfig
+    const bundle = await rollup(input)
+    await bundle.write(output as OutputOptions)
   }
 }
 
 export default async function (opts: IRollupOpts) {
   if (Array.isArray(opts.entry)) {
-    const { entry: entries } = opts;
+    const { entry: entries } = opts
     for (const entry of entries) {
-      await build(entry, opts);
+      await build(entry, opts)
     }
   } else {
-    await build(opts.entry, opts);
+    await build(opts.entry, opts)
   }
 }
