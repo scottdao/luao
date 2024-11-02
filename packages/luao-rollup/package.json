@@ -19,8 +19,8 @@
     "push": "npm publish",
     "dev": "luao-tsc",
     "tsc": "rm -rf dist && tsc",
-    "test": "node  example/index.js",
-    "test:node": "node --experimental-loader ts-node/esm  src/index.ts"
+    "test": "node  ./demo/index.js",
+    "test:node": "ts-node-esm  ./src/index.ts"
   },
   "dependencies": {
     "@babel/core": "7.23.7",
@@ -70,7 +70,7 @@
     "@types/signale": "^1.4.7",
     "is-windows": "^1.0.2",
     "luao-server": "0.1.3",
-    "luao-tsc": "1.0.3",
-    "ts-node": "^10.9.2"
+    "luao-tsc": "1.0.6",
+    "ts-node": "11.0.0-beta.1"
   }
 }

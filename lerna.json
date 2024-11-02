@@ -5,13 +5,9 @@
       "message": "chore(release): publish"
     },
     "version": {
-      "allowBranch": [
-        "master",
-        "main"
-      ]
+      "allowBranch": ["master", "main"]
     }
   },
   "version": "independent",
-  "npmClient": "pnpm",
-  "useWorkspaces": true
+  "npmClient": "pnpm"
 }
