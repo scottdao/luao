@@ -71,7 +71,7 @@ importers:
     devDependencies:
       luao-server:
         specifier: ^0.1.3
-        version: 0.1.3(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+        version: 0.1.3(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
 
   packages/luao-cli:
     devDependencies:
@@ -239,8 +239,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       luao-rollup:
-        specifier: ^1.1.5
-        version: 1.1.5(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+        specifier: ^1.1.6
+        version: 1.1.6(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
       signale:
         specifier: ^1.4.0
         version: 1.4.0
@@ -256,10 +256,10 @@ importers:
         version: 1.4.7
       luao-server:
         specifier: 0.1.3
-        version: 0.1.3(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+        version: 0.1.3(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
       luao-tsc:
-        specifier: ^1.0.4
-        version: 1.0.4
+        specifier: ^1.0.6
+        version: 1.0.6
 
   packages/luao-tsc:
     dependencies:
@@ -294,7 +294,7 @@ importers:
         version: 1.4.7
       luao-server:
         specifier: ^0.1.3
-        version: 0.1.3(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+        version: 0.1.3(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
       luao-tsc:
         specifier: ^1.0.2
         version: 1.0.4
@@ -3434,8 +3434,8 @@ packages:
   luao-babel-preset@1.0.8:
     resolution: {integrity: sha512-PCF7aUAc9+nKPPKvtPX7Jb8S8pjqAq7qQ+j7yuIV8lr/DU3Dz76iv5taQD3niAg/s+DorQckKSpeVrQ6hTs2rA==}
 
-  luao-rollup@1.1.5:
-    resolution: {integrity: sha512-HZv2OqDrwelCHmuF09hfPiIT+unANTI1RoBek3XqZxuUIUsyCYuCmpXaRwHDzudMTe2vC6M1qkBUOk1daKTeXQ==}
+  luao-rollup@1.1.6:
+    resolution: {integrity: sha512-L8So8p1ZhM6LT7E8FCzUwR5HYjlpC6NGfGmGNEWEcu7V2v1uMP9Wyu80PdvwhwgbPUjHLfuVBg+DxgWMIoNNsg==}
 
   luao-server@0.1.3:
     resolution: {integrity: sha512-y1vRbdB2wZ4aLuL9173ZgiyGHbQCYOe28oktgQErzXXe/99chdEkLBzgMrCEYVhkhK+b0jPy2Qmml6+yMLEa3A==}
@@ -8885,49 +8885,7 @@ snapshots:
       - styled-components
       - supports-color
 
-  luao-rollup@1.1.5(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
-    dependencies:
-      '@babel/core': 7.23.7
-      '@babel/runtime-corejs3': 7.25.6
-      '@rollup/plugin-alias': 5.1.1(rollup@4.22.5)
-      '@rollup/plugin-babel': 6.0.4(@babel/core@7.23.7)(@types/babel__core@7.20.5)(rollup@4.22.5)
-      '@rollup/plugin-commonjs': 25.0.8(rollup@4.22.5)
-      '@rollup/plugin-image': 3.0.3(rollup@4.22.5)
-      '@rollup/plugin-json': 6.1.0(rollup@4.22.5)
-      '@rollup/plugin-node-resolve': 15.3.0(rollup@4.22.5)
-      '@rollup/plugin-replace': 5.0.7(rollup@4.22.5)
-      '@rollup/plugin-strip': 3.0.4(rollup@4.22.5)
-      '@rollup/plugin-terser': 0.4.4(rollup@4.22.5)
-      '@rollup/plugin-typescript': 11.1.6(rollup@4.22.5)(tslib@2.7.0)(typescript@5.6.2)
-      '@svgr/rollup': 8.1.0(rollup@4.22.5)(typescript@5.6.2)
-      autoprefixer: 10.4.20(postcss@8.4.47)
-      cross-spawn: 7.0.3
-      lodash: 4.17.21
-      luao-babel-preset: 1.0.8(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      luao-util: 0.0.4
-      postcss: 8.4.47
-      postcss-flexbugs-fixes: 5.0.2(postcss@8.4.47)
-      postcss-import: 15.1.0(postcss@8.4.47)
-      postcss-url: 10.1.3(postcss@8.4.47)
-      rimraf: 5.0.10
-      rollup: 4.22.5
-      rollup-plugin-dts: 6.1.1(rollup@4.22.5)(typescript@5.6.2)
-      rollup-plugin-node-polyfills: 0.2.1
-      rollup-plugin-postcss: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
-      rollup-plugin-typescript2: 0.36.0(rollup@4.22.5)(typescript@5.6.2)
-      rollup-plugin-visualizer: 5.12.0(rollup@4.22.5)
-      signale: 1.4.0
-      temp-dir: 3.0.0
-      tslib: 2.7.0
-      typescript: 5.6.2
-      typescript-plugin-styled-components: 3.0.0(typescript@5.6.2)
-    transitivePeerDependencies:
-      - '@types/babel__core'
-      - styled-components
-      - supports-color
-      - ts-node
-
-  luao-rollup@1.1.5(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@11.0.0-beta.1(@types/node@20.16.10)(typescript@5.6.2)):
+  luao-rollup@1.1.6(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@11.0.0-beta.1(@types/node@20.16.10)(typescript@5.6.2)):
     dependencies:
       '@babel/core': 7.23.7
       '@babel/runtime-corejs3': 7.25.6
@@ -8969,7 +8927,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  luao-rollup@1.1.5(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
+  luao-rollup@1.1.6(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
     dependencies:
       '@babel/core': 7.23.7
       '@babel/runtime-corejs3': 7.25.6
@@ -9011,12 +8969,42 @@ snapshots:
       - supports-color
       - ts-node
 
-  luao-server@0.1.3(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
+  luao-rollup@1.1.6(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
     dependencies:
-      commander: 11.1.0
+      '@babel/core': 7.23.7
+      '@babel/runtime-corejs3': 7.25.6
+      '@rollup/plugin-alias': 5.1.1(rollup@4.22.5)
+      '@rollup/plugin-babel': 6.0.4(@babel/core@7.23.7)(@types/babel__core@7.20.5)(rollup@4.22.5)
+      '@rollup/plugin-commonjs': 25.0.8(rollup@4.22.5)
+      '@rollup/plugin-image': 3.0.3(rollup@4.22.5)
+      '@rollup/plugin-json': 6.1.0(rollup@4.22.5)
+      '@rollup/plugin-node-resolve': 15.3.0(rollup@4.22.5)
+      '@rollup/plugin-replace': 5.0.7(rollup@4.22.5)
+      '@rollup/plugin-strip': 3.0.4(rollup@4.22.5)
+      '@rollup/plugin-terser': 0.4.4(rollup@4.22.5)
+      '@rollup/plugin-typescript': 11.1.6(rollup@4.22.5)(tslib@2.7.0)(typescript@5.6.2)
+      '@svgr/rollup': 8.1.0(rollup@4.22.5)(typescript@5.6.2)
+      autoprefixer: 10.4.20(postcss@8.4.47)
       cross-spawn: 7.0.3
-      luao-rollup: 1.1.5(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      lodash: 4.17.21
+      luao-babel-preset: 1.0.8(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      luao-util: 0.0.4
+      postcss: 8.4.47
+      postcss-flexbugs-fixes: 5.0.2(postcss@8.4.47)
+      postcss-import: 15.1.0(postcss@8.4.47)
+      postcss-url: 10.1.3(postcss@8.4.47)
+      rimraf: 5.0.10
+      rollup: 4.22.5
+      rollup-plugin-dts: 6.1.1(rollup@4.22.5)(typescript@5.6.2)
+      rollup-plugin-node-polyfills: 0.2.1
+      rollup-plugin-postcss: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      rollup-plugin-typescript2: 0.36.0(rollup@4.22.5)(typescript@5.6.2)
+      rollup-plugin-visualizer: 5.12.0(rollup@4.22.5)
       signale: 1.4.0
+      temp-dir: 3.0.0
+      tslib: 2.7.0
+      typescript: 5.6.2
+      typescript-plugin-styled-components: 3.0.0(typescript@5.6.2)
     transitivePeerDependencies:
       - '@types/babel__core'
       - styled-components
@@ -9027,7 +9015,7 @@ snapshots:
     dependencies:
       commander: 11.1.0
       cross-spawn: 7.0.3
-      luao-rollup: 1.1.5(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@11.0.0-beta.1(@types/node@20.16.10)(typescript@5.6.2))
+      luao-rollup: 1.1.6(@types/babel__core@7.20.5)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@11.0.0-beta.1(@types/node@20.16.10)(typescript@5.6.2))
       signale: 1.4.0
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -9035,11 +9023,23 @@ snapshots:
       - supports-color
       - ts-node
 
-  luao-server@0.1.3(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
+  luao-server@0.1.3(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
     dependencies:
       commander: 11.1.0
       cross-spawn: 7.0.3
-      luao-rollup: 1.1.5(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      luao-rollup: 1.1.6(@types/babel__core@7.20.5)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      signale: 1.4.0
+    transitivePeerDependencies:
+      - '@types/babel__core'
+      - styled-components
+      - supports-color
+      - ts-node
+
+  luao-server@0.1.3(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
+    dependencies:
+      commander: 11.1.0
+      cross-spawn: 7.0.3
+      luao-rollup: 1.1.6(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
       signale: 1.4.0
     transitivePeerDependencies:
       - '@types/babel__core'
